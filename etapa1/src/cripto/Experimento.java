@@ -23,7 +23,7 @@ public class Experimento {
 
     public static void main(String[] args) throws IOException {
         Problema problema = new Problema("SEND", "MORE", "MONEY");
-
+        //ola amigos
         List<String[]> csv = new ArrayList<>();
         csv.add(new String[]{"config", "TM", "S", "C", "R", "convergencia_pct", "tempo_medio_ms"});
 

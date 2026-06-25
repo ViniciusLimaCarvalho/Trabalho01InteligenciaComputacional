@@ -50,6 +50,7 @@ public class AG {
                 Individuo f1;
                 Individuo f2;
                 if (rnd.nextDouble() < cfg.taxaCrossover()) {
+//                    System.out.println("Cruzando");
                     Individuo[] f = Crossover.cruzar(p1, p2, cfg, rnd);
                     f1 = f[0];
                     f2 = f[1];

@@ -8,7 +8,7 @@ package cripto;
 public class Config {
 
     public enum TaxaMutacao {
-        TM1(0.10), TM2(0.20);
+        TM1(0.10), TM2(0.20), TM3(1);
         public final double valor;
         TaxaMutacao(double valor) { this.valor = valor; }
     }
@@ -24,6 +24,7 @@ public class Config {
     public static int GERACOES = 50;
     public static int TOUR = 3;
     public static double ELITISMO = 0.20;
+    public static double taxaCrossover;
 
     public final TaxaMutacao tm;
     public final Selecao selecao;
@@ -35,11 +36,17 @@ public class Config {
         this.selecao = selecao;
         this.crossover = crossover;
         this.reinsercao = reinsercao;
+        if(reinsercao == Reinsercao.R2_ELITISMO){
+            taxaCrossover = .8;
+        } else {
+            taxaCrossover = 0.6;
+        }
     }
 
     /** Taxa de crossover: 60%, exceto na reinsercao R2 (elitismo) onde e 80%. */
     public double taxaCrossover() {
-        return reinsercao == Reinsercao.R2_ELITISMO ? 0.80 : 0.60;
+        return taxaCrossover;
+//        return reinsercao == Reinsercao.R2_ELITISMO ? 0.80 : 0.60;
     }
 
     public double taxaMutacao() {

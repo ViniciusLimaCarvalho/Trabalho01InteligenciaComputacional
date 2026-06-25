@@ -33,7 +33,6 @@ public class Reinsercao {
      */
     private static List<Individuo> elitismo(List<Individuo> pais, List<Individuo> filhos) {
         int nElite = (int) Math.round(Config.POP * Config.ELITISMO); // 20
-
         List<Individuo> paisOrdenados = new ArrayList<>(pais);
         Collections.sort(paisOrdenados);
 
@@ -44,6 +43,7 @@ public class Reinsercao {
         for (int i = 0; i < filhos.size() && nova.size() < Config.POP; i++) {
             nova.add(filhos.get(i));
         }
+
         // seguranca: completa com pais caso faltem filhos
 //        for (int i = nElite; nova.size() < Config.POP; i++) {
 //            nova.add(paisOrdenados.get(i));

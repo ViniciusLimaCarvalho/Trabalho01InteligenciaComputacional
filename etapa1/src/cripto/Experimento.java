@@ -23,7 +23,7 @@ public class Experimento {
 
     public static void main(String[] args) throws IOException {
         Problema problema = new Problema("SEND", "MORE", "MONEY");
-
+        //ola amigos
         List<String[]> csv = new ArrayList<>();
         csv.add(new String[]{"config", "TM", "S", "C", "R", "convergencia_pct", "tempo_medio_ms"});
 
@@ -36,23 +36,27 @@ public class Experimento {
         double melhorConv = -1.0;
         double melhorTempo = Double.MAX_VALUE;
 
-//        for (Config.TaxaMutacao tm : Config.TaxaMutacao.values()) {
-//            for (Config.Selecao s : Config.Selecao.values()) {
-//                for (Config.Crossover c : Config.Crossover.values()) {
-//                    for (Config.Reinsercao r : Config.Reinsercao.values()) {
-//                        Config cfg = new Config(tm, s, c, r);
+        // aquecimento
+        Config cfg = new Config(Config.TaxaMutacao.TM1, Config.Selecao.S1_TORNEIO,
+                Config.Crossover.C1_CX, Config.Reinsercao.R1_ORDENADA);
+        AG.Resultado res;
+        for (int i = 0; i < 500; i++) {
+            res = AG.executar(problema, cfg, new Random(i));
+        }
 
-                        Config cfg = new Config(Config.TaxaMutacao.TM2,
-                                Config.Selecao.S2_ROLETA,
-                                Config.Crossover.C2_PMX,
-                                Config.Reinsercao.R2_ELITISMO);
+        for (Config.TaxaMutacao tm : Config.TaxaMutacao.values()) {
+            for (Config.Selecao s : Config.Selecao.values()) {
+                for (Config.Crossover c : Config.Crossover.values()) {
+                    for (Config.Reinsercao r : Config.Reinsercao.values()) {
+                        cfg = new Config(tm, s, c, r);
 
                         int convergencias = 0;
                         long tempoTotalNs = 0;
                         for (int i = 0; i < EXECUCOES; i++) {
                             // semente reproducivel por (configuracao, execucao)
-                            Random rnd = new Random((long) cfg.indice() * 1_000_000L + i);
-                            AG.Resultado res;
+//                            Random rnd = new Random((long) cfg.indice() * 1_000_000L + i);
+                            Random rnd = new Random();
+
                             long t0 = System.nanoTime();
                             res = AG.executar(problema, cfg, rnd);
                             tempoTotalNs += System.nanoTime() - t0;
@@ -61,14 +65,12 @@ public class Experimento {
                             }
                         }
 
-                        System.gc();
                         double convPct = 100.0 * convergencias / EXECUCOES;
                         double tempoMedioMs = (tempoTotalNs / (double) EXECUCOES) / 1_000_000.0;
 
-
                         System.out.printf("%-18s %12.1f %15.4f%n", cfg.codigo(), convPct, tempoMedioMs);
                         csv.add(new String[]{
-                                cfg.codigo(), cfg.tm.name(), cfg.selecao.name(), cfg.crossover.name(), cfg.reinsercao.name(),
+                                cfg.codigo(), tm.name(), s.name(), c.name(), r.name(),
                                 String.format("%.2f", convPct), String.format("%.4f", tempoMedioMs)
                         });
 
@@ -78,10 +80,10 @@ public class Experimento {
                             melhorTempo = tempoMedioMs;
                             melhorConfig = cfg;
                         }
-//                    }
-//                }
-//            }
-//        }
+                    }
+                }
+            }
+        }
 
         System.out.println(LINHA);
         System.out.printf("Melhor configuracao: %s  (conv = %.1f%%, tempo = %.4f ms)%n",
@@ -90,7 +92,6 @@ public class Experimento {
         gravarCsv(csv);
         demonstrarSolucao(problema, melhorConfig);
     }
-
 
     private static void gravarCsv(List<String[]> linhas) throws IOException {
         Path dir = Paths.get("etapa1", "resultados");
@@ -105,7 +106,7 @@ public class Experimento {
     }
 
     /** Demonstra uma solucao encontrada (letra -> digito) com a melhor configuracao. */
-    public static void demonstrarSolucao(Problema problema, Config cfg) {
+    private static void demonstrarSolucao(Problema problema, Config cfg) {
         AG.Resultado solucao = null;
         for (int i = 0; i < 2000 && solucao == null; i++) {
             AG.Resultado res = AG.executar(problema, cfg, new Random(i));
@@ -122,7 +123,7 @@ public class Experimento {
         System.out.println("Solucao encontrada (" + cfg.codigo() + "):");
         StringBuilder sb = new StringBuilder();
         for (Map.Entry<Character, Integer> e : mapa.entrySet()) {
-            if (!sb.isEmpty()) {
+            if (sb.length() > 0) {
                 sb.append(", ");
             }
             sb.append(e.getKey()).append("=").append(e.getValue());

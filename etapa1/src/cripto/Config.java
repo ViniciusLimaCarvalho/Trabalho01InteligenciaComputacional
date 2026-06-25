@@ -20,10 +20,10 @@ public class Config {
     public enum Reinsercao { R1_ORDENADA, R2_ELITISMO }
 
     // Parametros fixos da 1a etapa
-    public static final int POP = 100;
-    public static final int GERACOES = 50;
-    public static final int TOUR = 3;
-    public static final double ELITISMO = 0.20;
+    public static int POP = 100;
+    public static int GERACOES = 50;
+    public static int TOUR = 3;
+    public static double ELITISMO = 0.20;
 
     public final TaxaMutacao tm;
     public final Selecao selecao;

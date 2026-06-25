@@ -45,9 +45,9 @@ public class Reinsercao {
             nova.add(filhos.get(i));
         }
         // seguranca: completa com pais caso faltem filhos
-        for (int i = nElite; nova.size() < Config.POP; i++) {
-            nova.add(paisOrdenados.get(i));
-        }
+//        for (int i = nElite; nova.size() < Config.POP; i++) {
+//            nova.add(paisOrdenados.get(i));
+//        }
         return nova;
     }
 }

@@ -67,10 +67,10 @@ public class AG {
 
                 f1.avaliar(problema);
                 filhos.add(f1);
-                if (filhos.size() < Config.POP) {
+//                if (filhos.size() < Config.POP) {
                     f2.avaliar(problema);
                     filhos.add(f2);
-                }
+//                }
             }
 
             pop = Reinsercao.reinserir(pop, filhos, cfg);
@@ -82,6 +82,7 @@ public class AG {
             if (melhor.fitness == 0) {
                 return new Resultado(true, g, 0, melhor.genes.clone());
             }
+//            System.out.println(melhor.fitness);
         }
 
         return new Resultado(false, Config.GERACOES, melhor.fitness, melhor.genes.clone());

@@ -1,0 +1,13 @@
+variacao,tipo_mutacao,taxa_mutacao,convergencia_pct,tempo_medio_ms,dentro_do_teto
+V0 Baseline (swap @20%),SWAP,0,20,64,00,0,4536,ref
+V1 Inversao @20%,INVERSAO,0,20,33,90,0,5289,sim
+V2 Scramble @20%,SCRAMBLE,0,20,41,20,0,5175,sim
+V3 Multi-swap @20%,MULTI_SWAP,0,20,74,60,0,4113,sim
+V4 Insercao @20%,INSERCAO,0,20,35,10,0,5347,sim
+V5 Hibrida @20%,HIBRIDA,0,20,62,00,0,3881,sim
+V6 Inversao @30%,INVERSAO,0,30,37,10,0,5236,sim
+V7 Scramble @30%,SCRAMBLE,0,30,41,60,0,5297,sim
+V8 Multi-swap @30%,MULTI_SWAP,0,30,83,70,0,3710,sim
+V9 Insercao @30%,INSERCAO,0,30,34,90,0,5539,sim
+V10 Hibrida @30%,HIBRIDA,0,30,67,10,0,3798,sim
+V11 Inversao @40%,INVERSAO,0,40,41,50,0,5364,sim

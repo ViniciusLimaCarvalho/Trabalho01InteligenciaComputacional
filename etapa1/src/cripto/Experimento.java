@@ -32,6 +32,15 @@ public class Experimento {
         System.out.printf("%-18s %12s %15s%n", "Config", "Conv.(%)", "Tempo(ms)");
         System.out.println(LINHA);
 
+        // warmup da JVM para evitar distorcao na primeira configuracao
+        {
+            Config warmupCfg = new Config(Config.TaxaMutacao.TM1, Config.Selecao.S1_TORNEIO,
+                    Config.Crossover.C1_CX, Config.Reinsercao.R1_ORDENADA);
+            for (int i = 0; i < 200; i++) {
+                AG.executar(problema, warmupCfg, new Random(i));
+            }
+        }
+
         Config melhorConfig = null;
         double melhorConv = -1.0;
         double melhorTempo = Double.MAX_VALUE;

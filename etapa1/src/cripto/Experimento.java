@@ -36,11 +36,17 @@ public class Experimento {
         double melhorConv = -1.0;
         double melhorTempo = Double.MAX_VALUE;
 
+        Config cfg = new Config(Config.TaxaMutacao.TM1, Config.Selecao.S1_TORNEIO,
+                Config.Crossover.C1_CX, Config.Reinsercao.R1_ORDENADA);
+        for (int i = 0; i < 200; i++) {
+            AG.executar(problema, cfg, new Random(i));
+        }
+
         for (Config.TaxaMutacao tm : Config.TaxaMutacao.values()) {
             for (Config.Selecao s : Config.Selecao.values()) {
                 for (Config.Crossover c : Config.Crossover.values()) {
                     for (Config.Reinsercao r : Config.Reinsercao.values()) {
-                        Config cfg = new Config(tm, s, c, r);
+                        cfg = new Config(tm, s, c, r);
 
                         int convergencias = 0;
                         long tempoTotalNs = 0;

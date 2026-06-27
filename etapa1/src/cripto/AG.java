@@ -51,7 +51,7 @@ public class AG {
                 Individuo f2;
                 if (rnd.nextDouble() < cfg.taxaCrossover()) {
 //                    System.out.println("Cruzando");
-                    Individuo[] f = Crossover.cruzar(p1, p2, cfg, rnd);
+                    Individuo[] f = Crossover.cruzar(p1, p2, cfg);
                     f1 = f[0];
                     f2 = f[1];
                 } else {
@@ -60,10 +60,10 @@ public class AG {
                 }
 
                 if (rnd.nextDouble() < cfg.taxaMutacao()) {
-                    Mutacao.swap(f1, rnd);
+                    Mutacao.mutacaoPermutacao(f1, rnd);
                 }
                 if (rnd.nextDouble() < cfg.taxaMutacao()) {
-                    Mutacao.swap(f2, rnd);
+                    Mutacao.mutacaoPermutacao(f2, rnd);
                 }
 
                 f1.avaliar(problema);

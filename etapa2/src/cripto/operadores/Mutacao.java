@@ -8,7 +8,7 @@ import java.util.Random;
 public class Mutacao {
 
     /** Swap: troca 2 posicoes distintas. */
-    public static void swap(Individuo ind, Random rnd) {
+    public static void mutacaoPermutacao(Individuo ind, Random rnd) {
         int i = rnd.nextInt(10);
         int j = rnd.nextInt(10);
         while (j == i) {

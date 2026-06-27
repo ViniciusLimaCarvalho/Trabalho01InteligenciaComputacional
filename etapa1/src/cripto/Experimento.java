@@ -32,32 +32,33 @@ public class Experimento {
         System.out.printf("%-18s %12s %15s%n", "Config", "Conv.(%)", "Tempo(ms)");
         System.out.println(LINHA);
 
-        // warmup da JVM para evitar distorcao na primeira configuracao
-        {
-            Config warmupCfg = new Config(Config.TaxaMutacao.TM1, Config.Selecao.S1_TORNEIO,
-                    Config.Crossover.C1_CX, Config.Reinsercao.R1_ORDENADA);
-            for (int i = 0; i < 200; i++) {
-                AG.executar(problema, warmupCfg, new Random(i));
-            }
-        }
-
         Config melhorConfig = null;
         double melhorConv = -1.0;
         double melhorTempo = Double.MAX_VALUE;
+
+        // aquecimento
+        Config cfg = new Config(Config.TaxaMutacao.TM1, Config.Selecao.S1_TORNEIO,
+                Config.Crossover.C1_CX, Config.Reinsercao.R1_ORDENADA);
+        AG.Resultado res;
+        for (int i = 0; i < 500; i++) {
+            res = AG.executar(problema, cfg, new Random(i));
+        }
 
         for (Config.TaxaMutacao tm : Config.TaxaMutacao.values()) {
             for (Config.Selecao s : Config.Selecao.values()) {
                 for (Config.Crossover c : Config.Crossover.values()) {
                     for (Config.Reinsercao r : Config.Reinsercao.values()) {
-                        Config cfg = new Config(tm, s, c, r);
+                        cfg = new Config(tm, s, c, r);
 
                         int convergencias = 0;
                         long tempoTotalNs = 0;
                         for (int i = 0; i < EXECUCOES; i++) {
                             // semente reproducivel por (configuracao, execucao)
-                            Random rnd = new Random((long) cfg.indice() * 1_000_000L + i);
+//                            Random rnd = new Random((long) cfg.indice() * 1_000_000L + i);
+                            Random rnd = new Random();
+
                             long t0 = System.nanoTime();
-                            AG.Resultado res = AG.executar(problema, cfg, rnd);
+                            res = AG.executar(problema, cfg, rnd);
                             tempoTotalNs += System.nanoTime() - t0;
                             if (res.convergiu) {
                                 convergencias++;

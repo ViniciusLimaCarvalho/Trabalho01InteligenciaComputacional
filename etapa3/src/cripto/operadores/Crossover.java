@@ -3,114 +3,107 @@ package cripto.operadores;
 import cripto.Config;
 import cripto.Individuo;
 
-import java.util.Arrays;
-import java.util.Random;
+import java.util.*;
 
-/**
- * Operadores de crossover que preservam a validade da permutacao (sem digitos repetidos):
- * C1 = Cycle Crossover (CX), C2 = PMX (Partially Mapped Crossover).
- * Cada operador retorna 2 filhos.
- */
 public class Crossover {
 
-    public static Individuo[] cruzar(Individuo p1, Individuo p2, Config cfg, Random rnd) {
+    public static Individuo[] cruzar(Individuo p1, Individuo p2, Config cfg) {
         switch (cfg.crossover) {
             case C1_CX:  return cx(p1.genes, p2.genes);
-            case C2_PMX: return pmx(p1.genes, p2.genes, rnd);
-            default: throw new IllegalStateException("Crossover desconhecido");
+            case C2_PMX: return pmx(p1.genes, p2.genes);
+            default: throw new IllegalStateException("Crossover não configurado");
         }
     }
 
-    /**
-     * Cycle Crossover (CX): identifica os ciclos entre os pais e os alterna entre os filhos.
-     */
     public static Individuo[] cx(int[] p1, int[] p2) {
+        Random rnd = new Random();
         int n = p1.length;
-        int[] c1 = new int[n];
-        int[] c2 = new int[n];
-        boolean[] visitado = new boolean[n];
+        int[] f1 = new int[n];
+        int[] f2 = new int[n];
 
-        int[] posEmP1 = new int[10];
+        int[] posEmP2 = new int[n];
         for (int i = 0; i < n; i++) {
-            posEmP1[p1[i]] = i;
+            posEmP2[p2[i]] = i;
         }
 
-        int cicloIdx = 0;
-        for (int inicio = 0; inicio < n; inicio++) {
-            if (visitado[inicio]) {
-                continue;
+        boolean[] noCiclo = new boolean[n];
+
+        int posInicial = rnd.nextInt(n);
+        int posAtual = posInicial;
+
+        do {
+            noCiclo[posAtual] = true;
+            int elementoP1 = p1[posAtual];
+            posAtual = posEmP2[elementoP1];
+        } while (posAtual != posInicial);
+
+        for (int i = 0; i < n; i++) {
+            if (noCiclo[i]) {
+                f1[i] = p1[i];
+                f2[i] = p2[i];
+            } else {
+                f1[i] = p2[i];
+                f2[i] = p1[i];
             }
-            boolean usarP1 = (cicloIdx % 2 == 0);
-            int j = inicio;
-            do {
-                visitado[j] = true;
-                if (usarP1) {
-                    c1[j] = p1[j];
-                    c2[j] = p2[j];
-                } else {
-                    c1[j] = p2[j];
-                    c2[j] = p1[j];
-                }
-                j = posEmP1[p2[j]];
-            } while (j != inicio);
-            cicloIdx++;
         }
-        return new Individuo[]{ new Individuo(c1), new Individuo(c2) };
+
+        return new Individuo[]{ new Individuo(f1), new Individuo(f2) };
     }
 
-    /** PMX: dois cortes aleatorios; gera um filho herdando o segmento de cada pai. */
-    public static Individuo[] pmx(int[] p1, int[] p2, Random rnd) {
+
+    public static Individuo[] pmx(int[] p1, int[] p2) {
+        Random rnd = new Random();
         int n = p1.length;
+
         int a = rnd.nextInt(n);
         int b = rnd.nextInt(n);
         if (a > b) {
             int t = a; a = b; b = t;
         }
-        return new Individuo[]{
-                new Individuo(pmxFilho(p1, p2, a, b)),
-                new Individuo(pmxFilho(p2, p1, a, b))
-        };
+
+        int[] f1 = new int[n];
+        int[] f2 = new int[n];
+
+        Arrays.fill(f1, -1);
+        Arrays.fill(f2, -1);
+
+        for (int i = a; i <= b; i++) {
+            f1[i] = p2[i];
+            f2[i] = p1[i];
+        }
+
+        for (int i = 0; i < n; i++) {
+            if (i >= a && i <= b) continue;
+
+            int val1 = p1[i];
+            while (contem(f1, a, b, val1)) {
+                int posNoFilho = encontrarPosicao(f1, a, b, val1);
+                val1 = p1[posNoFilho];
+            }
+            f1[i] = val1;
+
+            int val2 = p2[i];
+            while (contem(f2, a, b, val2)) {
+                int posNoFilho = encontrarPosicao(f2, a, b, val2);
+                val2 = p2[posNoFilho];
+            }
+            f2[i] = val2;
+        }
+
+        return new Individuo[]{ new Individuo(f1), new Individuo(f2) };
     }
 
-    /**
-     * Constroi um filho PMX: copia o segmento [a,b] de pA e resolve os elementos de pB
-     * desse segmento via mapeamento; o restante e preenchido por pB.
-     */
-    private static int[] pmxFilho(int[] pA, int[] pB, int a, int b) {
-        int n = pA.length;
-        int[] filho = new int[n];
-        Arrays.fill(filho, -1);
-
-        boolean[] noFilho = new boolean[10];
-        int[] posEmPB = new int[10];
-        for (int i = 0; i < n; i++) {
-            posEmPB[pB[i]] = i;
+    private static boolean contem(int[] arr, int start, int end, int val) {
+        for (int i = start; i <= end; i++) {
+            if (arr[i] == val) return true;
         }
+        return false;
+    }
 
-        for (int i = a; i <= b; i++) {
-            filho[i] = pA[i];
-            noFilho[pA[i]] = true;
+    private static int encontrarPosicao(int[] arr, int start, int end, int val) {
+        for (int i = start; i <= end; i++) {
+            if (arr[i] == val) return i;
         }
-
-        for (int i = a; i <= b; i++) {
-            int v = pB[i];
-            if (noFilho[v]) {
-                continue;
-            }
-            int pos = i;
-            while (pos >= a && pos <= b) {
-                int valNaPos = pA[pos];
-                pos = posEmPB[valNaPos];
-            }
-            filho[pos] = v;
-            noFilho[v] = true;
-        }
-
-        for (int i = 0; i < n; i++) {
-            if (filho[i] == -1) {
-                filho[i] = pB[i];
-            }
-        }
-        return filho;
+        return -1;
     }
 }

@@ -50,7 +50,8 @@ public class AG {
                 Individuo f1;
                 Individuo f2;
                 if (rnd.nextDouble() < cfg.taxaCrossover()) {
-                    Individuo[] f = Crossover.cruzar(p1, p2, cfg, rnd);
+//                    System.out.println("Cruzando");
+                    Individuo[] f = Crossover.cruzar(p1, p2, cfg);
                     f1 = f[0];
                     f2 = f[1];
                 } else {
@@ -59,18 +60,18 @@ public class AG {
                 }
 
                 if (rnd.nextDouble() < cfg.taxaMutacao()) {
-                    Mutacao.swap(f1, rnd);
+                    Mutacao.mutacaoPermutacao(f1, rnd);
                 }
                 if (rnd.nextDouble() < cfg.taxaMutacao()) {
-                    Mutacao.swap(f2, rnd);
+                    Mutacao.mutacaoPermutacao(f2, rnd);
                 }
 
                 f1.avaliar(problema);
                 filhos.add(f1);
-                if (filhos.size() < Config.POP) {
+//                if (filhos.size() < Config.POP) {
                     f2.avaliar(problema);
                     filhos.add(f2);
-                }
+//                }
             }
 
             pop = Reinsercao.reinserir(pop, filhos, cfg);
@@ -82,6 +83,7 @@ public class AG {
             if (melhor.fitness == 0) {
                 return new Resultado(true, g, 0, melhor.genes.clone());
             }
+//            System.out.println(melhor.fitness);
         }
 
         return new Resultado(false, Config.GERACOES, melhor.fitness, melhor.genes.clone());

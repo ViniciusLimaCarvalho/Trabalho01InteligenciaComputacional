@@ -7,10 +7,8 @@ import cripto.operadores.Selecao;
 
 import java.util.*;
 
-/** Algoritmo Genetico parametrizado por uma {@link Config}. */
 public class AG {
 
-    /** Resultado de uma execucao do AG. */
     public static class Resultado {
         public final boolean convergiu;
         public final int geracoes;
@@ -71,14 +69,6 @@ public class AG {
                         "A quantidade de reproduções eh nula, sendo inválido\n" +
                         "Recomenda-se ajustar o parâmentro de população e/ou taxa de crossover");
             }
-//            if(quantidadeDeReproducoes == 0){
-//                filhos.addAll(pop);
-//                for (Individuo f : filhos){
-//                    if(rnd.nextDouble() <= cfg.taxaMutacao()){
-//                        Mutacao.mutacaoPermutacao(f);
-//                    }
-//                }
-//            }
 
             for(int i = 0; i < quantidadeDeReproducoes; ++i) {
                 Individuo pai1 = Selecao.selecionar(candidatos, cfg);

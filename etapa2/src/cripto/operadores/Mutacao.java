@@ -4,7 +4,6 @@ import cripto.Individuo;
 
 import java.util.Random;
 
-/** Mutacao por troca (swap) de 2 posicoes dentre as 10 do vetor. Preserva a permutacao. */
 public class Mutacao {
 
     public static void mutacaoPermutacao(Individuo ind) {

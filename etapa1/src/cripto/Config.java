@@ -43,7 +43,6 @@ public class Config {
         }
     }
 
-    /** Taxa de crossover: 60%, exceto na reinsercao R2 (elitismo) onde e 80%. */
     public double taxaCrossover() {
         return taxaCrossover;
 //        return reinsercao == Reinsercao.R2_ELITISMO ? 0.80 : 0.60;
@@ -53,13 +52,11 @@ public class Config {
         return tm.valor;
     }
 
-    /** Indice 0..15 estavel para semeadura reproducivel do gerador aleatorio. */
     public int indice() {
         return ((tm.ordinal() * 2 + selecao.ordinal()) * 2 + crossover.ordinal()) * 2
                 + reinsercao.ordinal();
     }
 
-    /** Codigo curto da configuracao, ex.: "TM1-S1-C1-R1". */
     public String codigo() {
         return tm.name()
                 + "-" + selecao.name().substring(0, 2)

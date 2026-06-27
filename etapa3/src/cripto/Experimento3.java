@@ -42,7 +42,7 @@ public class Experimento3 {
         List<Variacao> variacoes = construirVariacoes();
         Variacao base = variacoes.get(0);
 
-        // warmup da JVM
+        // aquecer JVM
         Problema warm = problemaDe(0, base);
         for (int i = 0; i < 200; i++) {
             AG.executar(warm, base.cfg);

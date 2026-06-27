@@ -6,7 +6,6 @@ import cripto.Individuo;
 import java.util.List;
 import java.util.Random;
 
-/** Operadores de selecao de pais. */
 public class Selecao {
 
     public static Individuo selecionar(List<Individuo> pop, Config cfg) {

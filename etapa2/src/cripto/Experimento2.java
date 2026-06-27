@@ -9,44 +9,29 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-/**
- * 2a Etapa: refinamento a partir da melhor configuracao da etapa 1 (TM2-S1-C2-R1).
- *
- * Eixo explorado: PARAMETROS NUMERICOS. Mantemos fixos os operadores da melhor config
- * da etapa 1 (torneio, PMX, reinsercao ordenada, mutacao swap) e variamos os valores
- * numericos: tamanho da populacao, numero de geracoes, taxa de mutacao, taxa de
- * crossover e tamanho do torneio. Tambem testamos combinacoes dos ajustes "baratos".
- *
- * O teto de tempo e medido no proprio run: roda-se o baseline (com warmup) e define-se
- * cap = 1.5 x tempoBaseline. Cada variacao e marcada como DENTRO/FORA do cap.
- * Aumentar populacao/geracoes custa tempo e pode estourar o teto; ajustar taxas/torneio
- * e praticamente de graca. Cada configuracao e executada 1000 vezes; grava CSV em
- * etapa2/resultados/etapa2.csv.
- */
 public class Experimento2 {
 
     static final int EXECUCOES = 1000;
     static final String LINHA =
             "----------------------------------------------------------------------";
 
+    private static final Config BASE = new Config(0, 100, 50, 3, 0.2, Config.Selecao.S1_TORNEIO, Config.Crossover.C2_PMX,
+            Config.Reinsercao.R2_ELITISMO, 0.2, 0.6);
+
     public static void main(String[] args) throws IOException {
         Problema problema = new Problema("SEND", "MORE", "MONEY");
 
-        Config baseline = Config.baseline().indice(0).build();
-
         List<Config> variacoes = construirVariacoes();
 
-        // warmup da JVM para nao penalizar a primeira medicao
         for (int i = 0; i < 200; i++) {
-            AG.executar(problema, baseline);
+            AG.executar(problema, BASE);
         }
 
         System.out.println("Problema: " + problema + "   (" + EXECUCOES + " execucoes por configuracao)");
-        System.out.println("Eixo de refinamento: PARAMETROS NUMERICOS  (base: TM2-S1-C2-R1 da etapa 1)");
+        System.out.println("Eixo de refinamento: PARAMETROS NUMERICOS  (base: TM2-S1-C2-R2 da etapa 1)");
         System.out.println(LINHA);
 
-        // 1) baseline define o teto de tempo (cap = 1.5x)
-        Medida medBase = medir(problema, baseline);
+        Medida medBase = medir(problema, BASE);
         double cap = 1.5 * medBase.tempoMs;
         System.out.printf("Baseline: conv = %.1f%%, tempo = %.4f ms  ->  teto (+50%%) = %.4f ms%n",
                 medBase.convPct, medBase.tempoMs, cap);
@@ -54,15 +39,14 @@ public class Experimento2 {
         System.out.printf("%-40s %9s %12s %9s%n", "Config", "Conv.(%)", "Tempo(ms)", "<=teto?");
         System.out.println(LINHA);
         System.out.printf("%-40s %9.1f %12.4f %9s%n",
-                rotulo(baseline), medBase.convPct, medBase.tempoMs, "ref");
+                rotulo(BASE), medBase.convPct, medBase.tempoMs, "ref");
 
         List<String[]> csv = new ArrayList<>();
         csv.add(new String[]{"variacao", "pop", "geracoes", "tour", "taxa_mutacao",
                 "taxa_crossover", "convergencia_pct", "tempo_medio_ms", "dentro_do_teto"});
-        csv.add(linhaCsv(baseline, medBase, "ref"));
+        csv.add(linhaCsv(BASE, medBase, "ref"));
 
-        // 2) demais variacoes
-        Config melhor = baseline;
+        Config melhor = BASE;
         Medida medMelhor = medBase;
 
         for (Config cfg : variacoes) {
@@ -72,7 +56,6 @@ public class Experimento2 {
                     rotulo(cfg), m.convPct, m.tempoMs, dentro ? "sim" : "NAO");
             csv.add(linhaCsv(cfg, m, dentro ? "sim" : "nao"));
 
-            // melhor = maior convergencia DENTRO do teto (desempate: menor tempo)
             if (dentro && (m.convPct > medMelhor.convPct
                     || (m.convPct == medMelhor.convPct && m.tempoMs < medMelhor.tempoMs))) {
                 melhor = cfg;
@@ -90,65 +73,68 @@ public class Experimento2 {
         demonstrarSolucao(problema, melhor);
     }
 
-    /**
-     * Variacoes dos eixos numericos, todas partindo do baseline (TM2-S1-C2-R1).
-     * Eixos isolados (V1..V12) e combinacoes dos ajustes baratos (V13..V14).
-     */
     private static List<Config> construirVariacoes() {
         List<Config> v = new ArrayList<>();
         int idx = 1;
 
-        // --- Populacao (custa tempo, ~linear) ---
-        v.add(Config.baseline().pop(150).indice(idx++).build());
-        v.add(Config.baseline().pop(200).indice(idx++).build());
+        v.add(new Config(idx++, 150, 50, 3, 0.2, Config.Selecao.S1_TORNEIO, Config.Crossover.C2_PMX,
+                Config.Reinsercao.R2_ELITISMO, 0.2, 0.6));
+        v.add(new Config(idx++, 200, 50, 3, 0.2, Config.Selecao.S1_TORNEIO, Config.Crossover.C2_PMX,
+                Config.Reinsercao.R2_ELITISMO, 0.2, 0.6));
 
-        // --- Geracoes (custa tempo so nos runs que nao convergem cedo) ---
-        v.add(Config.baseline().geracoes(75).indice(idx++).build());
-        v.add(Config.baseline().geracoes(100).indice(idx++).build());
 
-        // --- Taxa de mutacao (custo de tempo ~zero) ---
-        v.add(Config.baseline().taxaMutacao(0.10).indice(idx++).build());
-        v.add(Config.baseline().taxaMutacao(0.30).indice(idx++).build());
-        v.add(Config.baseline().taxaMutacao(0.40).indice(idx++).build());
+        v.add(new Config(idx++, 100, 75, 3, 0.2, Config.Selecao.S1_TORNEIO, Config.Crossover.C2_PMX,
+                Config.Reinsercao.R2_ELITISMO, 0.2, 0.6));
+        v.add(new Config(idx++, 100, 100, 3, 0.2, Config.Selecao.S1_TORNEIO, Config.Crossover.C2_PMX,
+                Config.Reinsercao.R2_ELITISMO, 0.2, 0.6));
 
-        // --- Taxa de crossover (custo de tempo ~zero) ---
-        v.add(Config.baseline().taxaCrossover(0.70).indice(idx++).build());
-        v.add(Config.baseline().taxaCrossover(0.80).indice(idx++).build());
-        v.add(Config.baseline().taxaCrossover(0.90).indice(idx++).build());
 
-        // --- Tamanho do torneio (custo de tempo ~zero) ---
-        v.add(Config.baseline().tour(2).indice(idx++).build());
-        v.add(Config.baseline().tour(5).indice(idx++).build());
+        v.add(new Config(idx++, 100, 50, 3, 0.2, Config.Selecao.S1_TORNEIO, Config.Crossover.C2_PMX,
+                Config.Reinsercao.R2_ELITISMO, 0.1, 0.6));
+        v.add(new Config(idx++, 100, 50, 3, 0.2, Config.Selecao.S1_TORNEIO, Config.Crossover.C2_PMX,
+                Config.Reinsercao.R2_ELITISMO, 0.3, 0.6));
+        v.add(new Config(idx++, 100, 50, 3, 0.2, Config.Selecao.S1_TORNEIO, Config.Crossover.C2_PMX,
+                Config.Reinsercao.R2_ELITISMO, 0.4, 0.6));
 
-        // --- Combinacoes dos ajustes baratos (sem mexer em pop/geracoes) ---
-        v.add(Config.baseline().taxaMutacao(0.30).taxaCrossover(0.80).indice(idx++).build());
-        v.add(Config.baseline().taxaMutacao(0.30).taxaCrossover(0.80).tour(5).indice(idx++).build());
 
-        // --- Combinacoes fortes: populacao grande + reinsercao elitista + crossover e
-        //     mutacao altos. Convergem em ~11 geracoes, entao a pop grande termina cedo
-        //     e cabe no teto. Aqui esta o melhor resultado da etapa 2. ---
-        v.add(Config.baseline().pop(100).reinsercao(Config.Reinsercao.R2_ELITISMO)
-                .taxaCrossover(0.80).taxaMutacao(0.40).indice(idx++).build());
-        v.add(Config.baseline().pop(100).reinsercao(Config.Reinsercao.R2_ELITISMO)
-                .taxaCrossover(0.80).taxaMutacao(0.40).indice(idx++).build());
-        v.add(Config.baseline().pop(100).reinsercao(Config.Reinsercao.R2_ELITISMO)
-                .taxaCrossover(0.80).taxaMutacao(0.50).indice(idx++).build());
-        v.add(Config.baseline().pop(100).reinsercao(Config.Reinsercao.R2_ELITISMO)
-                .taxaCrossover(0.30).taxaMutacao(1).indice(idx++).build());
-        v.add(Config.baseline().pop(150).reinsercao(Config.Reinsercao.R2_ELITISMO)
-                .taxaCrossover(0.0).taxaMutacao(1).indice(idx++).build());
+
+        v.add(new Config( idx++, 100, 50, 3, 0.2, Config.Selecao.S1_TORNEIO, Config.Crossover.C2_PMX,
+                Config.Reinsercao.R2_ELITISMO, 0.2, 0.7));
+        v.add(new Config( idx++, 100, 50, 3, 0.2, Config.Selecao.S1_TORNEIO, Config.Crossover.C2_PMX,
+                Config.Reinsercao.R2_ELITISMO, 0.2, 0.8));
+        v.add(new Config( idx++, 100, 50, 3, 0.2, Config.Selecao.S1_TORNEIO, Config.Crossover.C2_PMX,
+                Config.Reinsercao.R2_ELITISMO, 0.2, 0.9));
+
+        v.add(new Config(idx++, 100, 50, 2, 0.2, Config.Selecao.S1_TORNEIO, Config.Crossover.C2_PMX,
+                Config.Reinsercao.R2_ELITISMO, 0.2, 0.6));
+        v.add(new Config(idx++, 100, 50, 5, 0.2, Config.Selecao.S1_TORNEIO, Config.Crossover.C2_PMX,
+                Config.Reinsercao.R2_ELITISMO, 0.2, 0.6));
+
+        v.add(new Config(idx++, 100, 50, 3, 0.2, Config.Selecao.S1_TORNEIO, Config.Crossover.C2_PMX,
+                Config.Reinsercao.R2_ELITISMO, 0.3, 0.8));
+        v.add(new Config(idx++, 100, 50, 5, 0.2, Config.Selecao.S1_TORNEIO, Config.Crossover.C2_PMX,
+                Config.Reinsercao.R2_ELITISMO, 0.3, 0.8));
+
+
+        v.add(new Config(idx++, 100, 50, 3, 0.2, Config.Selecao.S1_TORNEIO, Config.Crossover.C2_PMX,
+                Config.Reinsercao.R2_ELITISMO, 0.4, 0.8));
+
+
+        v.add(new Config(idx++, 100, 50, 3, 0.2, Config.Selecao.S1_TORNEIO, Config.Crossover.C2_PMX,
+                Config.Reinsercao.R2_ELITISMO, 0.5, 0.8));
+
+
+        v.add(new Config(idx++, 100, 50, 3, 0.2, Config.Selecao.S1_TORNEIO, Config.Crossover.C2_PMX,
+                Config.Reinsercao.R2_ELITISMO, 1, 0.3));
+
+
+        v.add(new Config(idx++, 150, 50, 3, 0.2, Config.Selecao.S1_TORNEIO, Config.Crossover.C2_PMX,
+                Config.Reinsercao.R2_ELITISMO, 1, 0.1));
+
 
         return v;
     }
 
-    /** Config de referencia (baseline) usada para gerar os rotulos por diferenca. */
-    private static final Config BASE = Config.baseline().indice(0).build();
-
-    /**
-     * Rotulo gerado automaticamente a partir dos valores REAIS da config: mostra "V{indice}"
-     * seguido apenas dos parametros que diferem do baseline. Assim o nome impresso nunca
-     * desincroniza dos valores ajustados na variacao.
-     */
     private static String rotulo(Config cfg) {
         StringBuilder d = new StringBuilder();
         if (cfg.pop != BASE.pop)                     juntar(d, "pop=" + cfg.pop);
@@ -172,7 +158,6 @@ public class Experimento2 {
         return Math.round(v * 100) + "%";
     }
 
-    /** Resultado agregado de 1000 execucoes de uma configuracao. */
     private static class Medida {
         final double convPct;
         final double tempoMs;
@@ -224,7 +209,6 @@ public class Experimento2 {
         System.out.println("CSV salvo em: " + arquivo.toAbsolutePath());
     }
 
-    /** Demonstra uma solucao encontrada (letra -> digito) com a melhor variacao. */
     private static void demonstrarSolucao(Problema problema, Config cfg) {
         AG.Resultado solucao = null;
         for (int i = 0; i < 2000 && solucao == null; i++) {

@@ -6,12 +6,10 @@ import java.util.Map;
 /**
  * Representa um problema de criptoaritmetica da forma parcela1 + parcela2 = resultado.
  *
- * As letras distintas sao mapeadas para indices 0..n-1 (na ordem em que aparecem).
- * O cromossomo do individuo e uma permutacao de {0..9}; o digito de cada letra e
- * obtido por genes[indiceDaLetra]. Como o cromossomo e uma permutacao, letras
- * distintas recebem digitos distintos por construcao (restricao do problema).
+ * As letras são mapeadas em índices de 0 a n-1 (na ordem quem aparecem seguindo a equação
+ * acima). Como cada indivíduo possui um cromossomo com permutação de {0...9} o índice de
+ * cada letra é obtido por genes[indiceLetra]. Cada letra possui um digito distinto
  *
- * Classe generica (reusada da etapa 1) para suportar tambem a etapa 3.
  */
 public class Problema {
 
@@ -37,12 +35,12 @@ public class Problema {
         }
     }
 
-    /** Numero de letras distintas do problema. */
+
     public int numLetras() {
         return indiceLetra.size();
     }
 
-    /** Valor numerico de uma palavra dado o cromossomo (permutacao de 0..9). */
+
     public long valorPalavra(String palavra, int[] genes) {
         long valor = 0;
         for (char c : palavra.toCharArray()) {
@@ -51,10 +49,7 @@ public class Problema {
         return valor;
     }
 
-    /**
-     * Funcao de avaliacao: | (parcela1 + parcela2) - resultado |.
-     * Menor e melhor; 0 indica solucao valida (convergencia).
-     */
+
     public long fitness(int[] genes) {
         long a = valorPalavra(parcela1, genes);
         long b = valorPalavra(parcela2, genes);
@@ -62,7 +57,7 @@ public class Problema {
         return Math.abs((a + b) - r);
     }
 
-    /** Mapeamento letra -> digito para apresentacao do resultado. */
+
     public Map<Character, Integer> mapeamento(int[] genes) {
         Map<Character, Integer> m = new LinkedHashMap<>();
         for (Map.Entry<Character, Integer> e : indiceLetra.entrySet()) {

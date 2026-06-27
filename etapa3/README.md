@@ -35,38 +35,43 @@ zero à esquerda) → a definição de convergência permanece comparável entre
 
 | Variação                  | SEND | EAT  | CROSS | COCA | DONALD | **Média** | Tempo(ms) | ≤ teto |
 |---------------------------|-----:|-----:|------:|-----:|-------:|----------:|----------:|:------:|
-| V0 base (global)          | 98,6 | 32,1 |   2,3 | 16,7 |    7,8 |  **31,5** |    0,6734 |  ref   |
-| V1 posicional             | 80,9 | 16,7 |   7,6 | 48,8 |   20,6 |  **34,9** |    0,7329 |  sim   |
-| **V2 zero-esq**           | 92,8 | 97,8 |   4,7 | 24,3 |   10,6 |  **46,0** |    0,6905 |  sim   |
-| V3 posicional+zero-esq    | 24,8 | 36,2 |   9,3 | 50,2 |   18,1 |  **27,7** |    0,8291 |  sim   |
-| V4 pop=200                |100,0 | 47,1 |   2,7 | 31,1 |   18,6 |  **39,9** |    1,3192 |  NÃO   |
-| V5 ger=100                | 99,9 | 32,6 |   1,7 | 27,7 |   15,1 |  **35,4** |    1,2512 |  NÃO   |
-| V6 posicional+pop=150     | 90,8 | 20,8 |   8,2 | 56,6 |   31,4 |  **41,6** |    1,0527 |  NÃO   |
+| V0 base (global)          | 98,2 | 30,7 |   2,2 | 17,3 |    9,4 |  **31,6** |    0,6731 |  ref   |
+| V1 posicional             | 82,7 | 17,0 |   6,7 | 46,2 |   22,1 |  **34,9** |    0,7272 |  sim   |
+| **V2 zero-esq**           | 95,5 | 98,1 |   3,5 | 25,6 |    9,7 |  **46,5** |    0,6693 |  sim   |
+| V3 posicional+zero-esq    | 23,0 | 33,3 |   7,7 | 49,7 |   16,2 |  **26,0** |    0,8365 |  sim   |
+| V4 pop=200                |100,0 | 48,6 |   2,3 | 30,1 |   16,2 |  **39,4** |    1,3033 |  NÃO   |
+| V5 ger=100                | 99,4 | 32,2 |   2,1 | 26,3 |   15,6 |  **35,1** |    1,2429 |  NÃO   |
+| V6 posicional+pop=150     | 91,3 | 20,7 |   9,7 | 55,7 |   32,9 |  **42,1** |    1,0469 |  NÃO   |
 
-Teto de tempo = 1,5 × tempo médio do baseline = **1,0101 ms**.
+Teto de tempo = 1,5 × tempo médio do baseline = **1,0097 ms**.
 
-**Melhor variação dentro do teto: V2 — restrição de zero à esquerda → 46,0% média
-(+14,5 p.p.)**, e ainda entrega as soluções *válidas* de verdade.
+**Melhor variação dentro do teto: V2 — restrição de zero à esquerda → 46,5% média
+(+15,1 p.p.)**, e ainda entrega as soluções *válidas* de verdade.
 
 ## Observações
 
-- **A campeã da Etapa 2 NÃO generaliza.** Otimizada para SEND+MORE (98,6%), desaba nos
-  demais (CROSS 2,3%, DONALD 7,8%), com média de apenas **31,5%**. Os parâmetros
+- **A campeã da Etapa 2 NÃO generaliza.** Otimizada para SEND+MORE (98,2%), desaba nos
+  demais (CROSS 2,2%, DONALD 9,4%), com média de apenas **31,6%**. Os parâmetros
   agressivos (mutação 100%) foram **superajustados** a um único problema de 8 letras.
-- **Zero à esquerda guia a busca (V2).** Além de corrigir a contagem (SEND cai de 98,6%
-  para 92,8% — a convergência *real* à solução única válida), **EAT salta de 32,1% para
-  97,8%**: forçar a primeira letra ≠ 0 canaliza o "vai-um" e elimina becos sem saída.
+- **Zero à esquerda guia a busca (V2).** Além de corrigir a contagem (SEND cai de 98,2%
+  para 95,5% — a convergência *real* à solução única válida), **EAT salta de 30,7% para
+  98,1%**: forçar a primeira letra ≠ 0 canaliza o "vai-um" e elimina becos sem saída.
 - **Fitness posicional (V1) ajuda os problemas difíceis e atrapalha os fáceis.** COCA
-  16,7→48,8 e DONALD 7,8→20,6 (gradiente suave guia quem está "quase lá" nos números
-  grandes), mas SEND 98,6→80,9 e EAT 32,1→16,7 pioram. É um trade-off, não um ganho geral.
+  17,3→46,2 e DONALD 9,4→22,1 (gradiente suave guia quem está "quase lá" nos números
+  grandes), mas SEND 98,2→82,7 e EAT 30,7→17,0 pioram. É um trade-off, não um ganho geral.
 - **Posicional + zero-à-esquerda combinam mal (V3).** A penalidade (10⁸) ofusca o erro
-  posicional (máx. ~54), achatando o gradiente — SEND desaba para 24,8%. Escalas
+  posicional (máx. ~54), achatando o gradiente — SEND desaba para 23,0%. Escalas
   incompatíveis.
 - **Mais recursos ajudam os difíceis, mas estouram o teto (V4–V6).** pop/gerações maiores
   elevam CROSS/DONALD/COCA, porém custam ~2× o tempo: ficam **fora** do limite de +50%.
 - **CROSS (9 letras) e DONALD (10 letras) continuam baixos em todas as variações** — o
   espaço de busca (até 10! permutações) é grande demais para pop=100/50 gerações; exigiriam
   orçamento de tempo bem maior.
+
+> **Reprodutibilidade:** após integrar o crossover da branch `mpgp`, os operadores CX/PMX
+> usam `new Random()` interno (não o gerador semeado), então cada execução produz números
+> ligeiramente diferentes. As tabelas acima são um **snapshot representativo**; as
+> conclusões comparativas se mantêm.
 
 ## Compilar e executar
 

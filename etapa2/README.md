@@ -4,7 +4,7 @@ Partindo da **melhor configuração da Etapa 1** (`TM2-S1-C2-R1`: mutação swap
 tour=3, PMX, reinserção ordenada, população 100, 50 gerações), a Etapa 2 refina o AG
 explorando os **eixos numéricos**: tamanho de população, número de gerações, taxa de
 mutação, taxa de crossover e tamanho do torneio. Os operadores de seleção (torneio),
-crossover (PMX) e mutação (swap) são mantidos fixos; as combinações fortes (V15–V18)
+crossover (PMX) e mutação (swap) são mantidos fixos; as combinações fortes (V15–V19)
 também trocam a **reinserção** para a elitista (R2), pois é ela que viabiliza as taxas de
 mutação altas.
 
@@ -20,10 +20,10 @@ mutação altas.
 | Combinações baratas | mut+cx, mut+cx+tour| ~zero                                            |
 | Combinações fortes  | elitismo+mut alta  | ~zero (convergem cedo)                           |
 
-## 18 variações (≥10 exigidas)
+## 19 variações (≥10 exigidas)
 
 Eixos isolados (V1–V12), combinações dos ajustes baratos (V13–V14) e combinações fortes
-com **reinserção elitista** (V15–V18). Os rótulos são gerados automaticamente a partir
+com **reinserção elitista** (V15–V19). Os rótulos são gerados automaticamente a partir
 dos valores reais de cada `Config`, mostrando só o que difere do baseline.
 
 ## Teto de tempo
@@ -33,55 +33,62 @@ Medido no próprio run: roda-se o baseline (com warmup da JVM) e define-se
 
 ## Resultados (1000 execuções por configuração)
 
-Baseline: **64,0%** em **0,4808 ms** → teto (+50%) = **0,7212 ms**.
+Baseline: **64,6%** em **0,4370 ms** → teto (+50%) = **0,6555 ms**.
 
-| Variação                    | Conv.(%) | Tempo(ms) | ≤ teto |
-|-----------------------------|---------:|----------:|:------:|
-| V0 baseline                 |     64,0 |    0,4808 |  ref   |
-| V1 pop=150                  |     74,0 |    0,4654 |  sim   |
-| V2 pop=200                  |     82,3 |    0,5193 |  sim   |
-| V3 ger=75                   |     64,5 |    0,4677 |  sim   |
-| V4 ger=100                  |     60,1 |    0,6168 |  sim   |
-| V5 mut=10%                  |     55,9 |    0,3813 |  sim   |
-| V6 mut=30%                  |     71,3 |    0,3365 |  sim   |
-| V7 mut=40%                  |     72,3 |    0,3379 |  sim   |
-| V8 cx=70%                   |     67,2 |    0,3528 |  sim   |
-| V9 cx=80%                   |     69,9 |    0,3524 |  sim   |
-| V10 cx=90%                  |     72,5 |    0,3417 |  sim   |
-| V11 tour=2                  |     72,2 |    0,3401 |  sim   |
-| V12 tour=5                  |     55,8 |    0,3913 |  sim   |
-| V13 mut=30% cx=80%          |     72,7 |    0,3418 |  sim   |
-| V14 mut=30% cx=80% tour=5   |     70,2 |    0,3383 |  sim   |
-| V15 mut=40% cx=80% elit     |     79,9 |    0,3310 |  sim   |
-| V16 mut=40% cx=80% elit     |     78,2 |    0,3340 |  sim   |
-| V17 mut=50% cx=80% elit     |     83,3 |    0,3176 |  sim   |
-| **V18 mut=100% cx=30% elit**| **97,9** |    0,2077 |  sim   |
+| Variação                          | Conv.(%) | Tempo(ms) | ≤ teto |
+|-----------------------------------|---------:|----------:|:------:|
+| V0 baseline                       |     64,6 |    0,4370 |  ref   |
+| V1 pop=150                        |     72,7 |    0,4790 |  sim   |
+| V2 pop=200                        |     82,0 |    0,5098 |  sim   |
+| V3 ger=75                         |     65,4 |    0,4440 |  sim   |
+| V4 ger=100                        |     63,8 |    0,5596 |  sim   |
+| V5 mut=10%                        |     55,9 |    0,3711 |  sim   |
+| V6 mut=30%                        |     66,2 |    0,3471 |  sim   |
+| V7 mut=40%                        |     73,8 |    0,3207 |  sim   |
+| V8 cx=70%                         |     69,1 |    0,3372 |  sim   |
+| V9 cx=80%                         |     69,3 |    0,3401 |  sim   |
+| V10 cx=90%                        |     71,3 |    0,3359 |  sim   |
+| V11 tour=2                        |     68,5 |    0,3499 |  sim   |
+| V12 tour=5                        |     59,9 |    0,3647 |  sim   |
+| V13 mut=30% cx=80%                |     73,8 |    0,3277 |  sim   |
+| V14 mut=30% cx=80% tour=5         |     65,9 |    0,3651 |  sim   |
+| V15 mut=40% cx=80% elit           |     81,9 |    0,3289 |  sim   |
+| V16 mut=40% cx=80% elit           |     79,2 |    0,3143 |  sim   |
+| V17 mut=50% cx=80% elit           |     87,1 |    0,2838 |  sim   |
+| V18 mut=100% cx=30% elit          |     98,1 |    0,1982 |  sim   |
+| **V19 pop=150 mut=100% cx=0% elit**| **99,8** |   0,1904 |  sim   |
 
-**Melhor variação: V18 — reinserção elitista + mutação 100% (cx=30%)** → **97,9%** de
-convergência (ganho de **+33,9 p.p.** sobre o baseline) em **0,2077 ms** — também a
-**mais rápida** de todas (~⅓ do tempo do baseline), bem dentro do teto.
+**Melhor variação: V19 — população 150 + reinserção elitista + mutação 100% + crossover 0%**
+→ **99,8%** de convergência (ganho de **+35,2 p.p.** sobre o baseline) em **0,1904 ms** —
+também a **mais rápida** de todas (~⅖ do tempo do baseline), bem dentro do teto.
 
 ### Observações
 
 - **Reinserção com elitismo é o grande enabler.** Garantir a sobrevivência dos melhores
   permite **disparar a mutação ao máximo** (exploração agressiva) sem perder progresso.
-  É o que separa V15–V18 (79–98%) dos eixos isolados (~55–82%).
-- **Com elitismo, mutação altíssima vence.** V17 (mut=50%) → 83,3% e V18 (mut=100%) →
-  97,9%. Sem elitismo, mutação alta seria destrutiva; com elitismo, vira busca paralela
-  intensiva que converge **cedo** — por isso V18 é também a mais barata (0,21 ms).
-- **População ajuda, mas é cara.** pop=150 → 74,0% e pop=200 → 82,3%: mais diversidade
-  reduz a convergência prematura, porém custa tempo. O elitismo (V18) alcança convergência
-  bem maior **sem** aumentar a população.
-- **Mais gerações não ajuda.** ger=100 cai para 60,1% gastando o dobro do tempo: se o AG
-  não converge em ~50 gerações, estagnou em ótimo local; iterar mais só gasta tempo.
-- **Pressão seletiva alta prejudica.** tour=5 → 55,8% (converge rápido demais para ótimo
-  local); tour=2 → 72,2% (mais diversidade). Mutação baixa (10%) também é ruim (55,9%).
+  É o que separa V15–V19 (79–100%) dos eixos isolados (~56–82%).
+- **Com elitismo, mutação altíssima vence.** V17 (mut=50%) → 87,1% e V18 (mut=100%) →
+  98,1%. Sem elitismo, mutação alta seria destrutiva; com elitismo, vira busca paralela
+  intensiva que converge **cedo** — por isso essas variações são também as mais baratas.
+- **A melhor config dispensa o crossover.** V19 zera o crossover (cx=0%) e fica só com
+  mutação 100% + elitismo + pop=150: vira uma busca tipo *hill-climbing* paralela com
+  elite. Chega a **99,8%** e é a mais rápida — para este problema, recombinar permutações
+  ajuda menos que perturbar e preservar os melhores.
+- **População ajuda, mas é cara isoladamente.** pop=150 → 72,7% e pop=200 → 82,0%: mais
+  diversidade reduz a convergência prematura, porém custa tempo. Combinada com elitismo +
+  mutação alta (V19), a pop=150 rende quase 100% **sem** estourar o teto.
+- **Mais gerações não ajuda.** ger=100 → 63,8% gastando ~1,3× o tempo: se o AG não converge
+  em ~50 gerações, estagnou em ótimo local; iterar mais só gasta tempo.
+- **Pressão seletiva alta prejudica.** tour=5 → 59,9% (converge rápido demais para ótimo
+  local); tour=2 → 68,5% (mais diversidade). Mutação baixa (10%) também é ruim (55,9%).
 
 > **Notas:**
-> - V15 e V16 são a **mesma** configuração (`mut=40% cx=80% elit`); a diferença (79,9% vs
->   78,2%) é só variância de sementes entre duas amostras de 1000 execuções.
-> - O baseline mede 64,0% (vs. 66,7% na Etapa 1) por usar sementes aleatórias diferentes —
->   variação normal de Monte Carlo; não altera as conclusões comparativas.
+> - V15 e V16 são a **mesma** configuração (`mut=40% cx=80% elit`); a diferença (81,9% vs
+>   79,2%) é só variância de execução entre duas amostras de 1000 rodadas.
+> - **Reprodutibilidade:** após integrar o crossover da branch `mpgp`, os operadores CX/PMX
+>   usam `new Random()` interno (não o gerador semeado), então cada execução do experimento
+>   produz números ligeiramente diferentes. As tabelas acima são um **snapshot
+>   representativo**; as conclusões comparativas se mantêm.
 
 ## Compilar e executar
 
@@ -99,4 +106,5 @@ A tabela é impressa no console e o CSV é gravado em `etapa2/resultados/etapa2.
 Código auto-contido (cópia refatorada da Etapa 1). Principal diferença: `Config` agora
 usa **campos de instância** (via `Config.baseline()` + builder) em vez de constantes
 estáticas, permitindo que cada variação ajuste qualquer parâmetro numérico. Os operadores
-(`Selecao`, `Crossover`, `Mutacao`, `Reinsercao`) são os mesmos da melhor config da Etapa 1.
+(`Selecao`, `Crossover`, `Mutacao`, `Reinsercao`) vêm da Etapa 1 (com o Crossover/AG
+atualizados a partir da branch `mpgp`).

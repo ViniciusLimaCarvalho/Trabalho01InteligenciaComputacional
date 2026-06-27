@@ -6,8 +6,8 @@ import java.util.Random;
 
 public class Mutacao {
 
-    public static void mutacaoPermutacao(Individuo ind, Random rnd) {
-
+    public static void mutacaoPermutacao(Individuo ind) {
+        Random rnd = new Random();
         int i = rnd.nextInt(10);
         int j = rnd.nextInt(10);
 

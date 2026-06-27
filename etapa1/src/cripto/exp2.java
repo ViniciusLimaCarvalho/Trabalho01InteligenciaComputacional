@@ -1,11 +1,4 @@
 package cripto;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -190,7 +183,7 @@ public class exp2 {
         // aquecimento da JVM
         AG.Resultado res;
         for (int i = 0; i < 500; i++) {
-            res = AG.executar(problema, cfg, new Random(i));
+            res = AG.executar(problema, cfg);
         }
 
         double tempoExec = 0;
@@ -200,7 +193,7 @@ public class exp2 {
         for(int i = 0; i < EXECS; i++) {
             Random rnd = new Random();
             long t0 = System.nanoTime();
-            res = AG.executar(problema, cfg, rnd);
+            res = AG.executar(problema, cfg);
             tempoExec += System.nanoTime() - t0;
             gens += res.geracoes;
             if (res.convergiu) {
@@ -223,7 +216,7 @@ public class exp2 {
     private static void demonstrarSolucao(Problema problema, Config cfg) {
         AG.Resultado solucao = null;
         for (int i = 0; i < 2000 && solucao == null; i++) {
-            AG.Resultado res = AG.executar(problema, cfg, new Random(i));
+            AG.Resultado res = AG.executar(problema, cfg);
             if (res.convergiu) {
                 solucao = res;
             }

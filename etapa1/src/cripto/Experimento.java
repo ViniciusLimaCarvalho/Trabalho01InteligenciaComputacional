@@ -41,7 +41,7 @@ public class Experimento {
                 Config.Crossover.C1_CX, Config.Reinsercao.R1_ORDENADA);
         AG.Resultado res;
         for (int i = 0; i < 500; i++) {
-            res = AG.executar(problema, cfg, new Random(i));
+            res = AG.executar(problema, cfg);
         }
 
         for (Config.TaxaMutacao tm : Config.TaxaMutacao.values()) {
@@ -58,7 +58,7 @@ public class Experimento {
                             Random rnd = new Random();
 
                             long t0 = System.nanoTime();
-                            res = AG.executar(problema, cfg, rnd);
+                            res = AG.executar(problema, cfg);
                             tempoTotalNs += System.nanoTime() - t0;
                             if (res.convergiu) {
                                 convergencias++;
@@ -109,7 +109,7 @@ public class Experimento {
     private static void demonstrarSolucao(Problema problema, Config cfg) {
         AG.Resultado solucao = null;
         for (int i = 0; i < 2000 && solucao == null; i++) {
-            AG.Resultado res = AG.executar(problema, cfg, new Random(i));
+            AG.Resultado res = AG.executar(problema, cfg);
             if (res.convergiu) {
                 solucao = res;
             }

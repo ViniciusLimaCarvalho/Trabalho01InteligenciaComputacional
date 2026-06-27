@@ -45,6 +45,7 @@ public class Experimento {
         }
 
         for (Config.TaxaMutacao tm : Config.TaxaMutacao.values()) {
+            if(tm == Config.TaxaMutacao.TM3) continue; // remover foreshadowing
             for (Config.Selecao s : Config.Selecao.values()) {
                 for (Config.Crossover c : Config.Crossover.values()) {
                     for (Config.Reinsercao r : Config.Reinsercao.values()) {

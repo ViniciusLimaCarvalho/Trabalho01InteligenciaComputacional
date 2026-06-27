@@ -58,6 +58,16 @@ public class AG {
             if((quantidadeDePais % 2) != 0) quantidadeDePais += 1;
             long quantidadeDeReproducoes = quantidadeDePais/2;
 
+            // caso de beirada (apenas para testes onde cruzamento nao ocorre)
+            // (mas ai eu acho que nao eh AG...)
+            if(quantidadeDeReproducoes == 0){
+                filhos.addAll(pop);
+                for (Individuo f : filhos){
+                    if(rnd.nextDouble() <= cfg.taxaMutacao()){
+                        Mutacao.mutacaoPermutacao(f);
+                    }
+                }
+            }
 
             for(int i = 0; i < quantidadeDeReproducoes; ++i) {
                 Individuo pai1 = Selecao.selecionar(candidatos, cfg);
@@ -81,6 +91,7 @@ public class AG {
                 filhos.add(fis[1]);
 
             }
+
             pop = Reinsercao.reinserir(pop, filhos, cfg);
             Individuo melhorGeracao = melhorDe(pop);
             if (melhorGeracao.fitness < melhor.fitness) {
@@ -157,7 +168,7 @@ public class AG {
 //    }
 
     private static Individuo melhorDe(List<Individuo> pop) {
-        Individuo m = pop.get(0);
+        Individuo m = pop.getFirst();
         for (Individuo ind : pop) {
             if (ind.fitness < m.fitness) {
                 m = ind;

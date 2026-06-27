@@ -36,13 +36,16 @@ public class Experimento {
         double melhorConv = -1.0;
         double melhorTempo = Double.MAX_VALUE;
 
+        // aquecimento
         Config cfg = new Config(Config.TaxaMutacao.TM1, Config.Selecao.S1_TORNEIO,
                 Config.Crossover.C1_CX, Config.Reinsercao.R1_ORDENADA);
-        for (int i = 0; i < 200; i++) {
-            AG.executar(problema, cfg, new Random(i));
+        AG.Resultado res;
+        for (int i = 0; i < 500; i++) {
+            res = AG.executar(problema, cfg);
         }
 
         for (Config.TaxaMutacao tm : Config.TaxaMutacao.values()) {
+            if(tm == Config.TaxaMutacao.TM3) continue; // remover foreshadowing
             for (Config.Selecao s : Config.Selecao.values()) {
                 for (Config.Crossover c : Config.Crossover.values()) {
                     for (Config.Reinsercao r : Config.Reinsercao.values()) {
@@ -52,9 +55,11 @@ public class Experimento {
                         long tempoTotalNs = 0;
                         for (int i = 0; i < EXECUCOES; i++) {
                             // semente reproducivel por (configuracao, execucao)
-                            Random rnd = new Random((long) cfg.indice() * 1_000_000L + i);
+//                            Random rnd = new Random((long) cfg.indice() * 1_000_000L + i);
+                            Random rnd = new Random();
+
                             long t0 = System.nanoTime();
-                            AG.Resultado res = AG.executar(problema, cfg, rnd);
+                            res = AG.executar(problema, cfg);
                             tempoTotalNs += System.nanoTime() - t0;
                             if (res.convergiu) {
                                 convergencias++;
@@ -105,7 +110,7 @@ public class Experimento {
     private static void demonstrarSolucao(Problema problema, Config cfg) {
         AG.Resultado solucao = null;
         for (int i = 0; i < 2000 && solucao == null; i++) {
-            AG.Resultado res = AG.executar(problema, cfg, new Random(i));
+            AG.Resultado res = AG.executar(problema, cfg);
             if (res.convergiu) {
                 solucao = res;
             }

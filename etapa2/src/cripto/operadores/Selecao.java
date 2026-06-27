@@ -12,15 +12,15 @@ public class Selecao {
     public static Individuo selecionar(List<Individuo> pop, Config cfg) {
         Random rnd = new Random();
         switch (cfg.selecao) {
-            case S1_TORNEIO: return torneio(pop, rnd);
+            case S1_TORNEIO: return torneio(pop, cfg, rnd);
             case S2_ROLETA:  return roleta(pop, rnd);
             default: throw new IllegalStateException("Selecao desconhecida");
         }
     }
 
-    public static Individuo torneio(List<Individuo> pop, Random rnd) {
+    public static Individuo torneio(List<Individuo> pop, Config cfg, Random rnd) {
         Individuo melhor = pop.get(rnd.nextInt(pop.size()));
-        for (int k = 1; k < Config.TOUR; k++) {
+        for (int k = 1; k < cfg.tour; k++) {
             Individuo concorrente = pop.get(rnd.nextInt(pop.size()));
             if (concorrente.fitness < melhor.fitness) {
                 melhor = concorrente;

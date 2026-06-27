@@ -7,7 +7,7 @@ import cripto.operadores.Selecao;
 
 import java.util.*;
 
-/** Algoritmo Genetico parametrizado por uma {@link Config}. */
+/** Algoritmo Genetico parametrizado por uma {@link Config} (parametros por instancia). */
 public class AG {
 
     /** Resultado de uma execucao do AG. */
@@ -27,19 +27,11 @@ public class AG {
 
     public static Resultado executar(Problema problema, Config cfg) {
         Random rnd = new Random();
-        if(Config.POP < 2){
-            throw new IllegalArgumentException(
-                    "Deve existir no mínimo dois indivíduos na população");
-        }
-        if((Config.POP % 2) != 0){
-            throw new IllegalArgumentException(
-                    "A população deve ser um número par");
-        }
 
-        List<Individuo> pop = new ArrayList<>(Config.POP);
+        List<Individuo> pop = new ArrayList<>(cfg.pop);
         Set<String> genesExistentes = new HashSet<>();
 
-        while(pop.size() < Config.POP){
+        while(pop.size() < cfg.pop){
             Individuo ind = Individuo.aleatorio(rnd);
 
             String assinatura = Arrays.toString(ind.genes);
@@ -56,29 +48,26 @@ public class AG {
 
         Individuo melhor = melhorDe(pop);
 
-        for (int g = 1; g <= Config.GERACOES; g++){
+        for (int g = 1; g <= cfg.geracoes; g++){
 
-            List<Individuo> filhos = new ArrayList<>(Config.POP);
+            List<Individuo> filhos = new ArrayList<>(cfg.pop);
             List<Individuo> candidatos = new ArrayList<>(pop);
 
-
-            long quantidadeDePais = Math.round((cfg.taxaCrossover() *  Config.POP));
-            if((quantidadeDePais % 2) != 0) quantidadeDePais -= 1;
+            // alerta de la ele abaixo:
+            long quantidadeDePais = Math.round((cfg.taxaCrossover() *  cfg.pop));
+            if((quantidadeDePais % 2) != 0) quantidadeDePais += 1;
             long quantidadeDeReproducoes = quantidadeDePais/2;
 
-            if(quantidadeDeReproducoes < 1){
-                throw new IllegalArgumentException(
-                        "A quantidade de reproduções eh nula, sendo inválido\n" +
-                        "Recomenda-se ajustar o parâmentro de população e/ou taxa de crossover");
+            // caso de beirada (apenas para testes onde cruzamento nao ocorre)
+            // (mas ai eu acho que nao eh AG...)
+            if(quantidadeDeReproducoes == 0){
+                filhos.addAll(pop);
+                for (Individuo f : filhos){
+                    if(rnd.nextDouble() <= cfg.taxaMutacao()){
+                        Mutacao.mutacaoPermutacao(f);
+                    }
+                }
             }
-//            if(quantidadeDeReproducoes == 0){
-//                filhos.addAll(pop);
-//                for (Individuo f : filhos){
-//                    if(rnd.nextDouble() <= cfg.taxaMutacao()){
-//                        Mutacao.mutacaoPermutacao(f);
-//                    }
-//                }
-//            }
 
             for(int i = 0; i < quantidadeDeReproducoes; ++i) {
                 Individuo pai1 = Selecao.selecionar(candidatos, cfg);
@@ -114,9 +103,8 @@ public class AG {
             }
 
         }
-        return new Resultado(false, Config.GERACOES, melhor.fitness, melhor.genes.clone());
+        return new Resultado(false, cfg.geracoes, melhor.fitness, melhor.genes.clone());
     }
-
 
     private static Individuo melhorDe(List<Individuo> pop) {
         Individuo m = pop.getFirst();

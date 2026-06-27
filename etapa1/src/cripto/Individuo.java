@@ -41,13 +41,6 @@ public class Individuo implements Comparable<Individuo> {
         return new Individuo(g);
     }
 
-    //Vai ser deprecado
-    public Individuo copia() {
-        Individuo c = new Individuo(genes.clone());
-        c.fitness = this.fitness;
-        return c;
-    }
-
     @Override
     public int compareTo(Individuo o) {
         return Long.compare(this.fitness, o.fitness); // menor fitness = melhor

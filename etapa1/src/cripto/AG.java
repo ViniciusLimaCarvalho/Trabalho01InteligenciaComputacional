@@ -31,6 +31,10 @@ public class AG {
             throw new IllegalArgumentException(
                     "Deve existir no mínimo dois indivíduos na população");
         }
+        if((Config.POP % 2) != 0){
+            throw new IllegalArgumentException(
+                    "A população deve ser um número par");
+        }
 
         List<Individuo> pop = new ArrayList<>(Config.POP);
         Set<String> genesExistentes = new HashSet<>();
@@ -62,11 +66,9 @@ public class AG {
             if((quantidadeDePais % 2) != 0) quantidadeDePais -= 1;
             long quantidadeDeReproducoes = quantidadeDePais/2;
 
-            // caso de beirada (apenas para testes onde cruzamento nao ocorre)
-            // (mas ai eu acho que nao eh AG...)
             if(quantidadeDeReproducoes < 1){
                 throw new IllegalArgumentException(
-                        "A quantidade de reproduções nula, sendo inválido\n" +
+                        "A quantidade de reproduções eh nula, sendo inválido\n" +
                         "Recomenda-se ajustar o parâmentro de população e/ou taxa de crossover");
             }
 //            if(quantidadeDeReproducoes == 0){

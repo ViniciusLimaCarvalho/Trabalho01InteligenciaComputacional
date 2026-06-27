@@ -50,7 +50,6 @@ public class Crossover {
         return new Individuo[]{ new Individuo(f1), new Individuo(f2) };
     }
 
-
     public static Individuo[] pmx(int[] p1, int[] p2) {
         Random rnd = new Random();
         int n = p1.length;

@@ -8,7 +8,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 /**
  * 2a Etapa: refinamento a partir da melhor configuracao da etapa 1 (TM2-S1-C2-R1).
@@ -39,7 +38,7 @@ public class Experimento2 {
 
         // warmup da JVM para nao penalizar a primeira medicao
         for (int i = 0; i < 200; i++) {
-            AG.executar(problema, baseline, new Random(i));
+            AG.executar(problema, baseline);
         }
 
         System.out.println("Problema: " + problema + "   (" + EXECUCOES + " execucoes por configuracao)");
@@ -187,10 +186,8 @@ public class Experimento2 {
         int convergencias = 0;
         long tempoTotalNs = 0;
         for (int i = 0; i < EXECUCOES; i++) {
-            // semente reproducivel por (variacao, execucao)
-            Random rnd = new Random((long) cfg.indice * 1_000_000L + i);
             long t0 = System.nanoTime();
-            AG.Resultado res = AG.executar(problema, cfg, rnd);
+            AG.Resultado res = AG.executar(problema, cfg);
             tempoTotalNs += System.nanoTime() - t0;
             if (res.convergiu) {
                 convergencias++;
@@ -231,7 +228,7 @@ public class Experimento2 {
     private static void demonstrarSolucao(Problema problema, Config cfg) {
         AG.Resultado solucao = null;
         for (int i = 0; i < 2000 && solucao == null; i++) {
-            AG.Resultado res = AG.executar(problema, cfg, new Random(i));
+            AG.Resultado res = AG.executar(problema, cfg);
             if (res.convergiu) {
                 solucao = res;
             }

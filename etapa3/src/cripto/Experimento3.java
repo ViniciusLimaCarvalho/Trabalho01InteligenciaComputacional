@@ -8,7 +8,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.Random;
 
 /**
  * 3a Etapa: generalizacao. Avalia a MELHOR configuracao da etapa 2 (reinsercao elitista,
@@ -46,7 +45,7 @@ public class Experimento3 {
         // warmup da JVM
         Problema warm = problemaDe(0, base);
         for (int i = 0; i < 200; i++) {
-            AG.executar(warm, base.cfg, new Random(i));
+            AG.executar(warm, base.cfg);
         }
 
         System.out.println("ETAPA 3 - Generalizacao em 5 problemas  (" + EXECUCOES + " execucoes cada)");
@@ -183,13 +182,11 @@ public class Experimento3 {
     }
 
     private static Medida medir(Problema problema, Config cfg, int probIdx) {
-        long seedBase = (long) cfg.indice * 10 + probIdx; // semente distinta por (variacao, problema)
         int convergencias = 0;
         long tempoTotalNs = 0;
         for (int i = 0; i < EXECUCOES; i++) {
-            Random rnd = new Random(seedBase * 1_000_000L + i);
             long t0 = System.nanoTime();
-            AG.Resultado res = AG.executar(problema, cfg, rnd);
+            AG.Resultado res = AG.executar(problema, cfg);
             tempoTotalNs += System.nanoTime() - t0;
             if (res.convergiu) {
                 convergencias++;
@@ -228,7 +225,7 @@ public class Experimento3 {
             Problema problema = problemaDe(p, v);
             AG.Resultado sol = null;
             for (int i = 0; i < 5000 && sol == null; i++) {
-                AG.Resultado res = AG.executar(problema, v.cfg, new Random(i));
+                AG.Resultado res = AG.executar(problema, v.cfg);
                 if (res.convergiu) {
                     sol = res;
                 }

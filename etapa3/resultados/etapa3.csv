@@ -1,36 +1,36 @@
 variacao,fitness,zero_esquerda,problema,letras,convergencia_pct,tempo_medio_ms
-V0 base (global),GLOBAL,false,MONEY,8,98.20,0.2635
-V0 base (global),GLOBAL,false,APPLE,6,30.70,0.5772
-V0 base (global),GLOBAL,false,DANGER,9,2.20,0.8907
-V0 base (global),GLOBAL,false,OASIS,6,17.30,0.7315
-V0 base (global),GLOBAL,false,ROBERT,10,9.40,0.9028
-V1 posicional,POSICIONAL,false,MONEY,8,82.70,0.3960
-V1 posicional,POSICIONAL,false,APPLE,6,17.00,0.7418
-V1 posicional,POSICIONAL,false,DANGER,9,6.70,0.9321
-V1 posicional,POSICIONAL,false,OASIS,6,46.20,0.6606
-V1 posicional,POSICIONAL,false,ROBERT,10,22.10,0.9055
-V2 zero-esq,GLOBAL,true,MONEY,8,95.50,0.4202
-V2 zero-esq,GLOBAL,true,APPLE,6,98.10,0.2844
-V2 zero-esq,GLOBAL,true,DANGER,9,3.50,0.9452
-V2 zero-esq,GLOBAL,true,OASIS,6,25.60,0.7286
-V2 zero-esq,GLOBAL,true,ROBERT,10,9.70,0.9682
-V3 posicional+zero-esq,POSICIONAL,true,MONEY,8,23.00,0.8338
-V3 posicional+zero-esq,POSICIONAL,true,APPLE,6,33.30,0.7059
-V3 posicional+zero-esq,POSICIONAL,true,DANGER,9,7.70,0.9815
-V3 posicional+zero-esq,POSICIONAL,true,OASIS,6,49.70,0.6740
-V3 posicional+zero-esq,POSICIONAL,true,ROBERT,10,16.20,0.9874
-V4 pop=200,GLOBAL,false,MONEY,8,100.00,0.3633
-V4 pop=200,GLOBAL,false,APPLE,6,48.60,1.1112
-V4 pop=200,GLOBAL,false,DANGER,9,2.30,1.8559
-V4 pop=200,GLOBAL,false,OASIS,6,30.10,1.3667
-V4 pop=200,GLOBAL,false,ROBERT,10,16.20,1.8195
-V5 ger=100,GLOBAL,false,MONEY,8,99.40,0.2457
-V5 ger=100,GLOBAL,false,APPLE,6,32.20,1.1670
-V5 ger=100,GLOBAL,false,DANGER,9,2.10,1.7602
-V5 ger=100,GLOBAL,false,OASIS,6,26.30,1.3442
-V5 ger=100,GLOBAL,false,ROBERT,10,15.60,1.6976
-V6 posicional+pop=150,POSICIONAL,false,MONEY,8,91.30,0.4899
-V6 posicional+pop=150,POSICIONAL,false,APPLE,6,20.70,1.1136
-V6 posicional+pop=150,POSICIONAL,false,DANGER,9,9.70,1.4057
-V6 posicional+pop=150,POSICIONAL,false,OASIS,6,55.70,0.9258
-V6 posicional+pop=150,POSICIONAL,false,ROBERT,10,32.90,1.2997
+V0 base (global),GLOBAL,false,MONEY,8,62.20,0.4976
+V0 base (global),GLOBAL,false,APPLE,6,11.70,0.4967
+V0 base (global),GLOBAL,false,DANGER,9,0.10,0.5422
+V0 base (global),GLOBAL,false,OASIS,6,15.20,0.4936
+V0 base (global),GLOBAL,false,ROBERT,10,1.60,0.5704
+V1 posicional,POSICIONAL,false,MONEY,8,37.20,0.4631
+V1 posicional,POSICIONAL,false,APPLE,6,9.20,0.4931
+V1 posicional,POSICIONAL,false,DANGER,9,1.00,0.5357
+V1 posicional,POSICIONAL,false,OASIS,6,17.60,0.4873
+V1 posicional,POSICIONAL,false,ROBERT,10,2.20,0.5472
+V2 zero-esq,GLOBAL,true,MONEY,8,36.60,0.4616
+V2 zero-esq,GLOBAL,true,APPLE,6,78.90,0.3397
+V2 zero-esq,GLOBAL,true,DANGER,9,1.00,0.5436
+V2 zero-esq,GLOBAL,true,OASIS,6,24.80,0.4778
+V2 zero-esq,GLOBAL,true,ROBERT,10,1.30,0.5779
+V3 posicional+zero-esq,POSICIONAL,true,MONEY,8,2.70,0.5312
+V3 posicional+zero-esq,POSICIONAL,true,APPLE,6,21.30,0.4968
+V3 posicional+zero-esq,POSICIONAL,true,DANGER,9,1.30,0.5659
+V3 posicional+zero-esq,POSICIONAL,true,OASIS,6,16.70,0.5078
+V3 posicional+zero-esq,POSICIONAL,true,ROBERT,10,1.40,0.5829
+V4 pop=200,GLOBAL,false,MONEY,8,81.20,0.7929
+V4 pop=200,GLOBAL,false,APPLE,6,17.30,1.0182
+V4 pop=200,GLOBAL,false,DANGER,9,0.70,1.1337
+V4 pop=200,GLOBAL,false,OASIS,6,29.50,0.9826
+V4 pop=200,GLOBAL,false,ROBERT,10,1.70,1.1607
+V5 ger=100,GLOBAL,false,MONEY,8,95.70,0.4691
+V5 ger=100,GLOBAL,false,APPLE,6,18.90,0.8701
+V5 ger=100,GLOBAL,false,DANGER,9,0.90,1.0433
+V5 ger=100,GLOBAL,false,OASIS,6,16.90,0.8827
+V5 ger=100,GLOBAL,false,ROBERT,10,6.00,1.0294
+V6 posicional+pop=150,POSICIONAL,false,MONEY,8,47.90,0.7082
+V6 posicional+pop=150,POSICIONAL,false,APPLE,6,12.00,0.7918
+V6 posicional+pop=150,POSICIONAL,false,DANGER,9,2.00,0.8738
+V6 posicional+pop=150,POSICIONAL,false,OASIS,6,24.70,0.7712
+V6 posicional+pop=150,POSICIONAL,false,ROBERT,10,3.00,0.8875

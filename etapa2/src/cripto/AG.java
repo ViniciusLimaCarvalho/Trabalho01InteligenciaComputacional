@@ -59,10 +59,10 @@ public class AG {
                 }
 
                 if (rnd.nextDouble() < cfg.taxaMutacao()) {
-                    Mutacao.mutar(f1, cfg, rnd);
+                    Mutacao.swap(f1, rnd);
                 }
                 if (rnd.nextDouble() < cfg.taxaMutacao()) {
-                    Mutacao.mutar(f2, cfg, rnd);
+                    Mutacao.swap(f2, rnd);
                 }
 
                 f1.avaliar(problema);

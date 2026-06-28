@@ -11,7 +11,6 @@ public class Config {
 
     public enum Fitness {GLOBAL, POSICIONAL}
 
-//    public final int indice;
 
     public final int pop;
     public final int geracoes;

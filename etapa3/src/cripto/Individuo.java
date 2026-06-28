@@ -36,11 +36,7 @@ public class Individuo implements Comparable<Individuo> {
         return new Individuo(g);
     }
 
-    public Individuo copia() {
-        Individuo c = new Individuo(genes.clone());
-        c.fitness = this.fitness;
-        return c;
-    }
+
 
     @Override
     public String toString() {

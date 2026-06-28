@@ -19,14 +19,8 @@ public class Individuo implements Comparable<Individuo> {
         this.fitness = problema.fitness(genes);
     }
 
+    /** Cria um individuo aleatorio: permutacao de 0..9 sem repeticao (Fisher-Yates). */
     public static Individuo aleatorio(Random rnd) {
-        /**
-         * Esta função gera um indivíduo aleatório. O algoritmo utilizado
-         * é o de Fisher-Yates, cujo qual pode ser encontrado no relatório
-         * e nas referências do mesmo no trabalho.
-         *
-         * Ele consiste em permutar aleatoriamente o vetores de valores.
-         */
         int[] g = new int[10];
         for (int i = 0; i < 10; i++) {
             g[i] = i;

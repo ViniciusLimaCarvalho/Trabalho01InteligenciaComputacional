@@ -100,7 +100,6 @@ public class AG {
                 melhor = melhorGeracao;
             }
 
-//            System.out.println("(" + problema.resultado + ") " + cfg + ": " + melhor + " -> " + melhor.fitness + " | " + g);
 
             if (melhor.fitness == 0) {
                 return new Resultado(true, g, 0, melhor.genes.clone());

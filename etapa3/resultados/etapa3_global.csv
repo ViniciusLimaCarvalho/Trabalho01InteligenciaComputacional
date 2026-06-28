@@ -1,0 +1,41 @@
+variacao,fitness,zero_esquerda,problema,letras,convergencia_pct,tempo_medio_ms
+Melhor 2 Global,GLOBAL,false,MONEY,8,97.30,0.9124
+Melhor 2 Global,GLOBAL,false,APPLE,6,20.40,1.5122
+Melhor 2 Global,GLOBAL,false,DANGER,9,1.50,1.9258
+Melhor 2 Global,GLOBAL,false,OASIS,6,20.50,1.5636
+Melhor 2 Global,GLOBAL,false,ROBERT,10,5.80,1.9669
+-elitismo,tour; +pop,GLOBAL,false,MONEY,8,98.00,1.0165
+-elitismo,tour; +pop,GLOBAL,false,APPLE,6,28.10,1.7838
+-elitismo,tour; +pop,GLOBAL,false,DANGER,9,1.50,2.1916
+-elitismo,tour; +pop,GLOBAL,false,OASIS,6,34.70,1.6938
+-elitismo,tour; +pop,GLOBAL,false,ROBERT,10,2.80,2.2218
+Usar roleta,GLOBAL,false,MONEY,8,93.70,0.7088
+Usar roleta,GLOBAL,false,APPLE,6,17.80,1.1860
+Usar roleta,GLOBAL,false,DANGER,9,1.00,1.3916
+Usar roleta,GLOBAL,false,OASIS,6,15.50,1.1983
+Usar roleta,GLOBAL,false,ROBERT,10,4.10,1.3866
+C1,+pop,-gens,GLOBAL,false,MONEY,8,98.70,0.5878
+C1,+pop,-gens,GLOBAL,false,APPLE,6,38.40,1.0966
+C1,+pop,-gens,GLOBAL,false,DANGER,9,1.90,1.4471
+C1,+pop,-gens,GLOBAL,false,OASIS,6,24.60,1.1496
+C1,+pop,-gens,GLOBAL,false,ROBERT,10,5.80,1.4510
+C1,R1,+pop,GLOBAL,false,MONEY,8,99.00,0.6671
+C1,R1,+pop,GLOBAL,false,APPLE,6,41.30,1.3445
+C1,R1,+pop,GLOBAL,false,DANGER,9,1.90,1.8865
+C1,R1,+pop,GLOBAL,false,OASIS,6,27.80,1.4628
+C1,R1,+pop,GLOBAL,false,ROBERT,10,8.90,1.8889
+C1,R1,+pop,+mut,GLOBAL,false,MONEY,8,100.00,0.5904
+C1,R1,+pop,+mut,GLOBAL,false,APPLE,6,54.50,1.6773
+C1,R1,+pop,+mut,GLOBAL,false,DANGER,9,3.20,2.7655
+C1,R1,+pop,+mut,GLOBAL,false,OASIS,6,33.70,1.9461
+C1,R1,+pop,+mut,GLOBAL,false,ROBERT,10,16.20,2.6722
+C1,R1,+pop,+mut,+cross,GLOBAL,false,MONEY,8,100.00,0.8354
+C1,R1,+pop,+mut,+cross,GLOBAL,false,APPLE,6,69.60,1.6716
+C1,R1,+pop,+mut,+cross,GLOBAL,false,DANGER,9,3.10,2.8538
+C1,R1,+pop,+mut,+cross,GLOBAL,false,OASIS,6,48.20,1.8636
+C1,R1,+pop,+mut,+cross,GLOBAL,false,ROBERT,10,15.20,2.7793
+C1,R1,+pop,mut=1,cross=1,GLOBAL,false,MONEY,8,100.00,0.7348
+C1,R1,+pop,mut=1,cross=1,GLOBAL,false,APPLE,6,59.00,1.4788
+C1,R1,+pop,mut=1,cross=1,GLOBAL,false,DANGER,9,3.50,2.3002
+C1,R1,+pop,mut=1,cross=1,GLOBAL,false,OASIS,6,45.10,1.5349
+C1,R1,+pop,mut=1,cross=1,GLOBAL,false,ROBERT,10,11.20,2.2861

@@ -1,5 +1,6 @@
 package cripto;
 
+import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -39,6 +40,11 @@ public class Individuo implements Comparable<Individuo> {
         Individuo c = new Individuo(genes.clone());
         c.fitness = this.fitness;
         return c;
+    }
+
+    @Override
+    public String toString() {
+        return Arrays.toString(genes);
     }
 
     @Override

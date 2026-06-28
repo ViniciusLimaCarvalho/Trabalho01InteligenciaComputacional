@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/** Estrategias de reinsercao para formar a proxima populacao. */
 public class Reinsercao {
 
     public static List<Individuo> reinserir(List<Individuo> pais, List<Individuo> filhos, Config cfg) {
@@ -18,7 +17,6 @@ public class Reinsercao {
         }
     }
 
-    /** R1: reinsercao ordenada - mantem os POP melhores dentre pais + filhos. */
     private static List<Individuo> ordenada(List<Individuo> pais, List<Individuo> filhos, Config cfg) {
         List<Individuo> todos = new ArrayList<>(pais.size() + filhos.size());
         todos.addAll(pais);
@@ -27,10 +25,7 @@ public class Reinsercao {
         return new ArrayList<>(todos.subList(0, cfg.pop));
     }
 
-    /**
-     * R2: reinsercao pura com elitismo - preserva os melhores pais (elite) e preenche o
-     * restante com os filhos gerados.
-     */
+
     private static List<Individuo> elitismo(List<Individuo> pais, List<Individuo> filhos, Config cfg) {
         int nElite = (int) Math.round(cfg.pop * cfg.elitismo);
 

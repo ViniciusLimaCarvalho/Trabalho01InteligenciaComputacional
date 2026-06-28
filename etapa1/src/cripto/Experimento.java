@@ -23,7 +23,7 @@ public class Experimento {
 
     public static void main(String[] args) throws IOException {
         Problema problema = new Problema("SEND", "MORE", "MONEY");
-        //ola amigos
+
         List<String[]> csv = new ArrayList<>();
         csv.add(new String[]{"config", "TM", "S", "C", "R", "convergencia_pct", "tempo_medio_ms"});
 
@@ -54,8 +54,6 @@ public class Experimento {
                         int convergencias = 0;
                         long tempoTotalNs = 0;
                         for (int i = 0; i < EXECUCOES; i++) {
-                            // semente reproducivel por (configuracao, execucao)
-//                            Random rnd = new Random((long) cfg.indice() * 1_000_000L + i);
                             Random rnd = new Random();
 
                             long t0 = System.nanoTime();
@@ -106,7 +104,6 @@ public class Experimento {
         System.out.println("CSV salvo em: " + arquivo.toAbsolutePath());
     }
 
-    /** Demonstra uma solucao encontrada (letra -> digito) com a melhor configuracao. */
     private static void demonstrarSolucao(Problema problema, Config cfg) {
         AG.Resultado solucao = null;
         for (int i = 0; i < 2000 && solucao == null; i++) {

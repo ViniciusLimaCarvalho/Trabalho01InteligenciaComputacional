@@ -27,6 +27,14 @@ public class AG {
 
     public static Resultado executar(Problema problema, Config cfg) {
         Random rnd = new Random();
+        if(cfg.pop < 2){
+            throw new IllegalArgumentException(
+                    "Deve existir no mínimo dois indivíduos na população");
+        }
+        if((cfg.pop % 2) != 0){
+            throw new IllegalArgumentException(
+                    "A população deve ser um número par");
+        }
 
         List<Individuo> pop = new ArrayList<>(cfg.pop);
         Set<String> genesExistentes = new HashSet<>();
@@ -53,20 +61,14 @@ public class AG {
             List<Individuo> filhos = new ArrayList<>(cfg.pop);
             List<Individuo> candidatos = new ArrayList<>(pop);
 
-            // alerta de la ele abaixo:
             long quantidadeDePais = Math.round((cfg.taxaCrossover() *  cfg.pop));
-            if((quantidadeDePais % 2) != 0) quantidadeDePais += 1;
+            if((quantidadeDePais % 2) != 0) quantidadeDePais -= 1;
             long quantidadeDeReproducoes = quantidadeDePais/2;
 
-            // caso de beirada (apenas para testes onde cruzamento nao ocorre)
-            // (mas ai eu acho que nao eh AG...)
-            if(quantidadeDeReproducoes == 0){
-                filhos.addAll(pop);
-                for (Individuo f : filhos){
-                    if(rnd.nextDouble() <= cfg.taxaMutacao()){
-                        Mutacao.mutacaoPermutacao(f);
-                    }
-                }
+            if(quantidadeDeReproducoes < 1){
+                throw new IllegalArgumentException(
+                        "A quantidade de reproduções eh nula, sendo inválido\n" +
+                                "Recomenda-se ajustar o parâmentro de população e/ou taxa de crossover");
             }
 
             for(int i = 0; i < quantidadeDeReproducoes; ++i) {
@@ -97,6 +99,8 @@ public class AG {
             if (melhorGeracao.fitness < melhor.fitness) {
                 melhor = melhorGeracao;
             }
+
+//            System.out.println("(" + problema.resultado + ") " + cfg + ": " + melhor + " -> " + melhor.fitness + " | " + g);
 
             if (melhor.fitness == 0) {
                 return new Resultado(true, g, 0, melhor.genes.clone());

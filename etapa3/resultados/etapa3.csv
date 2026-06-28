@@ -1,36 +1,16 @@
 variacao,fitness,zero_esquerda,problema,letras,convergencia_pct,tempo_medio_ms
-V0 base (global),GLOBAL,false,MONEY,8,61.00,0.5910
-V0 base (global),GLOBAL,false,APPLE,6,10.80,0.6837
-V0 base (global),GLOBAL,false,DANGER,9,0.40,0.7338
-V0 base (global),GLOBAL,false,OASIS,6,17.20,0.6682
-V0 base (global),GLOBAL,false,ROBERT,10,0.80,0.7400
-V1 posicional,POSICIONAL,false,MONEY,8,36.20,0.6520
-V1 posicional,POSICIONAL,false,APPLE,6,11.10,0.6899
-V1 posicional,POSICIONAL,false,DANGER,9,1.20,0.7472
-V1 posicional,POSICIONAL,false,OASIS,6,16.90,0.6833
-V1 posicional,POSICIONAL,false,ROBERT,10,1.60,0.7537
-V2 zero-esq,GLOBAL,true,MONEY,8,37.90,0.6448
-V2 zero-esq,GLOBAL,true,APPLE,6,78.90,0.4779
-V2 zero-esq,GLOBAL,true,DANGER,9,0.80,0.7437
-V2 zero-esq,GLOBAL,true,OASIS,6,26.10,0.6395
-V2 zero-esq,GLOBAL,true,ROBERT,10,1.40,0.7509
-V3 posicional+zero-esq,POSICIONAL,true,MONEY,8,3.20,0.7299
-V3 posicional+zero-esq,POSICIONAL,true,APPLE,6,22.50,0.6926
-V3 posicional+zero-esq,POSICIONAL,true,DANGER,9,2.30,0.7658
-V3 posicional+zero-esq,POSICIONAL,true,OASIS,6,19.00,0.6982
-V3 posicional+zero-esq,POSICIONAL,true,ROBERT,10,1.60,0.7749
-V4 pop=200,GLOBAL,false,MONEY,8,81.70,0.9764
-V4 pop=200,GLOBAL,false,APPLE,6,15.40,1.3442
-V4 pop=200,GLOBAL,false,DANGER,9,0.90,1.4797
-V4 pop=200,GLOBAL,false,OASIS,6,30.60,1.2706
-V4 pop=200,GLOBAL,false,ROBERT,10,0.60,1.4909
-V5 ger=100,GLOBAL,false,MONEY,8,94.60,0.6606
-V5 ger=100,GLOBAL,false,APPLE,6,19.00,1.2169
-V5 ger=100,GLOBAL,false,DANGER,9,0.50,1.4582
-V5 ger=100,GLOBAL,false,OASIS,6,17.50,1.2233
-V5 ger=100,GLOBAL,false,ROBERT,10,3.30,1.4224
-V6 posicional+pop=150,POSICIONAL,false,MONEY,8,50.60,0.9057
-V6 posicional+pop=150,POSICIONAL,false,APPLE,6,12.10,1.0269
-V6 posicional+pop=150,POSICIONAL,false,DANGER,9,2.00,1.1022
-V6 posicional+pop=150,POSICIONAL,false,OASIS,6,24.10,0.9815
-V6 posicional+pop=150,POSICIONAL,false,ROBERT,10,2.10,1.1134
+Global,GLOBAL,false,MONEY,8,98.00,1.0411
+Global,GLOBAL,false,APPLE,6,16.80,2.2480
+Global,GLOBAL,false,DANGER,9,1.10,2.6190
+Global,GLOBAL,false,OASIS,6,22.20,2.2223
+Global,GLOBAL,false,ROBERT,10,6.40,2.7144
+Posicional,POSICIONAL,false,MONEY,8,78.90,1.5094
+Posicional,POSICIONAL,false,APPLE,6,12.10,2.4726
+Posicional,POSICIONAL,false,DANGER,9,5.70,2.6169
+Posicional,POSICIONAL,false,OASIS,6,22.10,2.3902
+Posicional,POSICIONAL,false,ROBERT,10,13.70,2.4757
+Posicional com penalidades,POSICIONAL,true,MONEY,8,19.00,2.5538
+Posicional com penalidades,POSICIONAL,true,APPLE,6,28.10,2.0543
+Posicional com penalidades,POSICIONAL,true,DANGER,9,6.90,2.6127
+Posicional com penalidades,POSICIONAL,true,OASIS,6,24.40,2.1268
+Posicional com penalidades,POSICIONAL,true,ROBERT,10,10.30,2.5545

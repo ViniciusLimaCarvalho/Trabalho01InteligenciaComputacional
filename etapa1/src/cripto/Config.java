@@ -45,7 +45,6 @@ public class Config {
 
     public double taxaCrossover() {
         return taxaCrossover;
-//        return reinsercao == Reinsercao.R2_ELITISMO ? 0.80 : 0.60;
     }
 
     public double taxaMutacao() {

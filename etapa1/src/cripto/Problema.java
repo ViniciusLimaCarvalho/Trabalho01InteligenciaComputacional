@@ -37,11 +37,6 @@ public class Problema {
 
 
     public long valorPalavra(String palavra, int[] genes) {
-        /**
-         * Retorna o valor do cromossomo, dado a parcela e
-         * os alelos do mesmo
-         */
-
         long valor = 0;
 
         for (char c : palavra.toCharArray()) {
@@ -52,11 +47,6 @@ public class Problema {
     }
 
     public long fitness(int[] genes) {
-        /**
-         * Função de avaliação da etapa. Avaliando por minimização.
-         * Se valor = 0, então é uma solução do problema
-         */
-
         long a = valorPalavra(parcela1, genes);
         long b = valorPalavra(parcela2, genes);
         long r = valorPalavra(resultado, genes);

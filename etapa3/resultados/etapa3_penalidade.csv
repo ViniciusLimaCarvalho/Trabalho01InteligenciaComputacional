@@ -1,0 +1,41 @@
+variacao,fitness,zero_esquerda,problema,letras,convergencia_pct,tempo_medio_ms
+Melhor 2 se fosse posicional,POSICIONAL,false,MONEY,8,97.60,0.7150
+Melhor 2 se fosse posicional,POSICIONAL,false,APPLE,6,7.10,1.7642
+Melhor 2 se fosse posicional,POSICIONAL,false,DANGER,9,2.00,2.0044
+Melhor 2 se fosse posicional,POSICIONAL,false,OASIS,6,18.80,1.6298
+Melhor 2 se fosse posicional,POSICIONAL,false,ROBERT,10,7.50,2.0076
+-elitismo,tour; +pop,POSICIONAL,true,MONEY,8,92.40,1.4562
+-elitismo,tour; +pop,POSICIONAL,true,APPLE,6,98.90,1.0314
+-elitismo,tour; +pop,POSICIONAL,true,DANGER,9,3.90,2.3217
+-elitismo,tour; +pop,POSICIONAL,true,OASIS,6,40.30,1.6760
+-elitismo,tour; +pop,POSICIONAL,true,ROBERT,10,8.80,2.3551
+Usar roleta,POSICIONAL,true,MONEY,8,81.40,0.9519
+Usar roleta,POSICIONAL,true,APPLE,6,86.70,0.7429
+Usar roleta,POSICIONAL,true,DANGER,9,3.20,1.4406
+Usar roleta,POSICIONAL,true,OASIS,6,24.30,1.1727
+Usar roleta,POSICIONAL,true,ROBERT,10,8.60,1.4472
+C1,+pop,-gens,POSICIONAL,true,MONEY,8,80.30,1.0298
+C1,+pop,-gens,POSICIONAL,true,APPLE,6,92.90,0.7216
+C1,+pop,-gens,POSICIONAL,true,DANGER,9,7.20,1.5064
+C1,+pop,-gens,POSICIONAL,true,OASIS,6,34.10,1.1325
+C1,+pop,-gens,POSICIONAL,true,ROBERT,10,12.70,1.5387
+C1,R1,+pop,POSICIONAL,true,MONEY,8,83.90,1.2041
+C1,R1,+pop,POSICIONAL,true,APPLE,6,84.80,0.9365
+C1,R1,+pop,POSICIONAL,true,DANGER,9,8.60,1.9549
+C1,R1,+pop,POSICIONAL,true,OASIS,6,37.80,1.4064
+C1,R1,+pop,POSICIONAL,true,ROBERT,10,17.60,1.9672
+C1,R1,+pop,+mut,POSICIONAL,true,MONEY,8,96.90,1.1222
+C1,R1,+pop,+mut,POSICIONAL,true,APPLE,6,96.20,0.7391
+C1,R1,+pop,+mut,POSICIONAL,true,DANGER,9,15.30,2.7795
+C1,R1,+pop,+mut,POSICIONAL,true,OASIS,6,44.50,1.8022
+C1,R1,+pop,+mut,POSICIONAL,true,ROBERT,10,33.80,2.6567
+C1,R1,+pop,+mut,+cross,POSICIONAL,true,MONEY,8,97.70,1.5070
+C1,R1,+pop,+mut,+cross,POSICIONAL,true,APPLE,6,99.50,1.0046
+C1,R1,+pop,+mut,+cross,POSICIONAL,true,DANGER,9,13.90,2.9237
+C1,R1,+pop,+mut,+cross,POSICIONAL,true,OASIS,6,66.60,1.5397
+C1,R1,+pop,+mut,+cross,POSICIONAL,true,ROBERT,10,26.90,2.9260
+C1,R1,+pop,mut=1,cross=1,POSICIONAL,true,MONEY,8,95.30,1.2887
+C1,R1,+pop,mut=1,cross=1,POSICIONAL,true,APPLE,6,98.60,0.8619
+C1,R1,+pop,mut=1,cross=1,POSICIONAL,true,DANGER,9,11.80,2.4044
+C1,R1,+pop,mut=1,cross=1,POSICIONAL,true,OASIS,6,56.80,1.4405
+C1,R1,+pop,mut=1,cross=1,POSICIONAL,true,ROBERT,10,23.50,2.3898

@@ -45,7 +45,7 @@ public class Experimento {
         }
 
         for (Config.TaxaMutacao tm : Config.TaxaMutacao.values()) {
-            if(tm == Config.TaxaMutacao.TM3) continue; // remover foreshadowing
+            if(tm == Config.TaxaMutacao.TM3) continue;
             for (Config.Selecao s : Config.Selecao.values()) {
                 for (Config.Crossover c : Config.Crossover.values()) {
                     for (Config.Reinsercao r : Config.Reinsercao.values()) {
@@ -54,7 +54,6 @@ public class Experimento {
                         int convergencias = 0;
                         long tempoTotalNs = 0;
                         for (int i = 0; i < EXECUCOES; i++) {
-                            Random rnd = new Random();
 
                             long t0 = System.nanoTime();
                             res = AG.executar(problema, cfg);

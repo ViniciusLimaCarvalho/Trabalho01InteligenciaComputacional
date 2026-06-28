@@ -12,7 +12,7 @@ import java.util.Locale;
 
 public class Experimento3 {
 
-    static final int EXECUCOES = 1000; // 1000;
+    static final int EXECUCOES = 1000;
     static final String LINHA =
             "--------------------------------------------------------------------------------";
 
@@ -25,9 +25,6 @@ public class Experimento3 {
             {"DONALD", "GERALD", "ROBERT", "DONALD"},
     };
 
-
-    // Primeiro, testar a função de fitness anterior (erro global)
-    // Ai so dps testar a nova função de fitness (erro posicional)
 
     private static Problema problemaDe(int p, Config cfg) {
         return new Problema(PROBLEMAS[p][0], PROBLEMAS[p][1], PROBLEMAS[p][2], cfg.fitness, cfg.penalidade);
@@ -46,31 +43,20 @@ public class Experimento3 {
     public static void main(String[] args) throws IOException {
 
 
-        // RETORNAR
-//        Problema warm = problemaDe(0, BASEGLOBAL);
-//        for (int i = 0; i < 200; i++) {
-//            AG.executar(warm, BASEGLOBAL);
-//        }
-
-        if(true == false){
-            System.out.println("\nque.\n");
-        }
-
         System.out.println("Base: melhor config da etapa 2 (elitismo + swap 100% + cx 30%)");
 
         System.out.println("Testando com fitness global");
-        TestarVars(construirVariacoesGlobal());
+        TestarVars(construirVariacoesGlobal(), "etapa3_global.csv");
 
         System.out.println("Testando com fitness posicional");
-        TestarVars(construirVariacoesPosicionais());
+        TestarVars(construirVariacoesPosicionais(), "etapa3_posicional.csv");
 
         System.out.println("Testando com fitness posicional e penalidade");
-        TestarVars(construirVariacoesPenalidade());
+        TestarVars(construirVariacoesPenalidade(), "etapa3_penalidade.csv");
     }
 
-    public static void TestarVars(List<Config> variacoes) throws IOException {
+    public static void TestarVars(List<Config> variacoes, String nomeArquivo) throws IOException {
 
-//        System.out.println("ETAPA 3 - Generalizacao em 5 problemas  (" + EXECUCOES + " execucoes cada)");
         System.out.println(LINHA);
         System.out.printf("%-26s %6s %6s %6s %6s %7s | %8s %9s %6s%n",
                 "Variacao", "SEND", "EAT", "CROSS", "COCA", "DONALD",
@@ -124,36 +110,8 @@ public class Experimento3 {
         }
 
         System.out.println(LINHA);
-
-
-
-        //        double convBase = mediaConv(variacoes.get(0));
-//        System.out.printf("Baseline (config etapa 2) generaliza com convergencia media de %.1f%%%n",
-//                convBase);
-//        if (melhor != null) {
-//            System.out.printf("Melhor variacao (dentro do teto): %s  ->  %.1f%% media (%+.1f p.p.)%n",
-//                    melhor, melhorConvMedia, melhorConvMedia - convBase);
-//        }
-//        gravarCsv(csv);
-
-
-
-//        demonstrarSolucoes(variacoes.get(0));
+        gravarCsv(csv, nomeArquivo);
     }
-
-    /** Uma variacao = configuracao do AG + modo de fitness + restricao de zero a esquerda. */
-//    private static class Variacao {
-//        final String nome;
-//        final Config cfg;
-//        final Problema.Fitness fitness;
-//        final boolean zeroEsq;
-//        Variacao(String nome, Config cfg, Problema.Fitness fitness, boolean zeroEsq) {
-//            this.nome = nome;
-//            this.cfg = cfg;
-//            this.fitness = fitness;
-//            this.zeroEsq = zeroEsq;
-//        }
-//    }
 
 
     private static List<Config> construirVariacoesGlobal() {
@@ -163,32 +121,32 @@ public class Experimento3 {
         v.add(new Config(200, 50, 2, 0.1,
                 Config.Selecao.S1_TORNEIO, Config.Crossover.C2_PMX,
                 Config.Reinsercao.R2_ELITISMO, 0.9, 0.6,
-                false, Config.Fitness.GLOBAL,  "-elitismo,tour; +pop")); //
+                false, Config.Fitness.GLOBAL,  "-elitismo,tour; +pop"));
 
         v.add(new Config(100, 50, 2, 0.1,
                 Config.Selecao.S2_ROLETA, Config.Crossover.C2_PMX,
                 Config.Reinsercao.R2_ELITISMO, 0.9, 0.6,
-                false, Config.Fitness.GLOBAL, "Usar roleta")); //
+                false, Config.Fitness.GLOBAL, "Usar roleta"));
 
         v.add(new Config(150, 50, 2, 0.1,
                 Config.Selecao.S1_TORNEIO, Config.Crossover.C1_CX,
                 Config.Reinsercao.R2_ELITISMO, 0.9, 0.6,
-                false, Config.Fitness.GLOBAL, "C1,+pop,-gens")); //?
+                false, Config.Fitness.GLOBAL, "C1,+pop,-gens"));
 
         v.add(new Config(200, 50, 2, 0.1,
                 Config.Selecao.S1_TORNEIO, Config.Crossover.C1_CX,
                 Config.Reinsercao.R1_ORDENADA, 0.7, 0.6,
-                false, Config.Fitness.GLOBAL, "C1,R1,+pop")); //
+                false, Config.Fitness.GLOBAL, "C1,R1,+pop"));
 
         v.add(new Config(150, 100, 2, 0.1,
                 Config.Selecao.S1_TORNEIO, Config.Crossover.C1_CX,
                 Config.Reinsercao.R1_ORDENADA, 1, 0.6,
-                false, Config.Fitness.GLOBAL, "C1,R1,+pop,+mut")); //?
+                false, Config.Fitness.GLOBAL, "C1,R1,+pop,+mut"));
 
         v.add(new Config(200, 50, 2, 0.1,
                 Config.Selecao.S1_TORNEIO, Config.Crossover.C1_CX,
                 Config.Reinsercao.R1_ORDENADA, 1, 0.9,
-                false, Config.Fitness.GLOBAL, "C1,R1,+pop,+mut,+cross")); //
+                false, Config.Fitness.GLOBAL, "C1,R1,+pop,+mut,+cross"));
 
         v.add(new Config(150, 50, 2, 0.1,
                 Config.Selecao.S1_TORNEIO, Config.Crossover.C1_CX,
@@ -197,7 +155,6 @@ public class Experimento3 {
         return v;
     }
 
-    // a ideia aqui eh literalmente testar as mesmas coisa, mas com funcao de fitness posicional
     private static List<Config> construirVariacoesPosicionais() {
         List<Config> v = new ArrayList<Config>();
         v.add(BASEPOSICIONAL);
@@ -205,32 +162,32 @@ public class Experimento3 {
         v.add(new Config(200, 50, 2, 0.1,
                 Config.Selecao.S1_TORNEIO, Config.Crossover.C2_PMX,
                 Config.Reinsercao.R2_ELITISMO, 0.9, 0.6,
-                false, Config.Fitness.POSICIONAL,  "-elitismo,tour; +pop")); //
+                false, Config.Fitness.POSICIONAL,  "-elitismo,tour; +pop"));
 
         v.add(new Config(100, 50, 2, 0.1,
                 Config.Selecao.S2_ROLETA, Config.Crossover.C2_PMX,
                 Config.Reinsercao.R2_ELITISMO, 0.9, 0.6,
-                false, Config.Fitness.POSICIONAL, "Usar roleta")); //
+                false, Config.Fitness.POSICIONAL, "Usar roleta"));
 
         v.add(new Config(150, 50, 2, 0.1,
                 Config.Selecao.S1_TORNEIO, Config.Crossover.C1_CX,
                 Config.Reinsercao.R2_ELITISMO, 0.9, 0.6,
-                false, Config.Fitness.POSICIONAL, "C1,+pop,-gens")); //?
+                false, Config.Fitness.POSICIONAL, "C1,+pop,-gens"));
 
         v.add(new Config(200, 50, 2, 0.1,
                 Config.Selecao.S1_TORNEIO, Config.Crossover.C1_CX,
                 Config.Reinsercao.R1_ORDENADA, 0.7, 0.6,
-                false, Config.Fitness.POSICIONAL, "C1,R1,+pop")); //
+                false, Config.Fitness.POSICIONAL, "C1,R1,+pop"));
 
         v.add(new Config(150, 100, 2, 0.1,
                 Config.Selecao.S1_TORNEIO, Config.Crossover.C1_CX,
                 Config.Reinsercao.R1_ORDENADA, 1, 0.6,
-                false, Config.Fitness.POSICIONAL, "C1,R1,+pop,+mut")); //?
+                false, Config.Fitness.POSICIONAL, "C1,R1,+pop,+mut"));
 
         v.add(new Config(200, 50, 2, 0.1,
                 Config.Selecao.S1_TORNEIO, Config.Crossover.C1_CX,
                 Config.Reinsercao.R1_ORDENADA, 1, 0.9,
-                false, Config.Fitness.POSICIONAL, "C1,R1,+pop,+mut,+cross")); //
+                false, Config.Fitness.POSICIONAL, "C1,R1,+pop,+mut,+cross"));
 
         v.add(new Config(150, 50, 2, 0.1,
                 Config.Selecao.S1_TORNEIO, Config.Crossover.C1_CX,
@@ -246,32 +203,32 @@ public class Experimento3 {
         v.add(new Config(200, 50, 2, 0.1,
                 Config.Selecao.S1_TORNEIO, Config.Crossover.C2_PMX,
                 Config.Reinsercao.R2_ELITISMO, 0.9, 0.6,
-                true, Config.Fitness.POSICIONAL,  "-elitismo,tour; +pop")); //
+                true, Config.Fitness.POSICIONAL,  "-elitismo,tour; +pop"));
 
         v.add(new Config(100, 50, 2, 0.1,
                 Config.Selecao.S2_ROLETA, Config.Crossover.C2_PMX,
                 Config.Reinsercao.R2_ELITISMO, 0.9, 0.6,
-                true, Config.Fitness.POSICIONAL, "Usar roleta")); //
+                true, Config.Fitness.POSICIONAL, "Usar roleta"));
 
         v.add(new Config(150, 50, 2, 0.1,
                 Config.Selecao.S1_TORNEIO, Config.Crossover.C1_CX,
                 Config.Reinsercao.R2_ELITISMO, 0.9, 0.6,
-                true, Config.Fitness.POSICIONAL, "C1,+pop,-gens")); //?
+                true, Config.Fitness.POSICIONAL, "C1,+pop,-gens"));
 
         v.add(new Config(200, 50, 2, 0.1,
                 Config.Selecao.S1_TORNEIO, Config.Crossover.C1_CX,
                 Config.Reinsercao.R1_ORDENADA, 0.7, 0.6,
-                true, Config.Fitness.POSICIONAL, "C1,R1,+pop")); //
+                true, Config.Fitness.POSICIONAL, "C1,R1,+pop"));
 
         v.add(new Config(150, 100, 2, 0.1,
                 Config.Selecao.S1_TORNEIO, Config.Crossover.C1_CX,
                 Config.Reinsercao.R1_ORDENADA, 1, 0.6,
-                true, Config.Fitness.POSICIONAL, "C1,R1,+pop,+mut")); //?
+                true, Config.Fitness.POSICIONAL, "C1,R1,+pop,+mut"));
 
         v.add(new Config(200, 50, 2, 0.1,
                 Config.Selecao.S1_TORNEIO, Config.Crossover.C1_CX,
                 Config.Reinsercao.R1_ORDENADA, 1, 0.9,
-                true, Config.Fitness.POSICIONAL, "C1,R1,+pop,+mut,+cross")); //
+                true, Config.Fitness.POSICIONAL, "C1,R1,+pop,+mut,+cross"));
 
         v.add(new Config(150, 50, 2, 0.1,
                 Config.Selecao.S1_TORNEIO, Config.Crossover.C1_CX,
@@ -315,10 +272,10 @@ public class Experimento3 {
         return soma / PROBLEMAS.length;
     }
 
-    private static void gravarCsv(List<String[]> linhas) throws IOException {
+    private static void gravarCsv(List<String[]> linhas, String nomeArquivo) throws IOException {
         Path dir = Paths.get("etapa3", "resultados");
         Files.createDirectories(dir);
-        Path arquivo = dir.resolve("etapa3.csv");
+        Path arquivo = dir.resolve(nomeArquivo);
         try (PrintWriter pw = new PrintWriter(Files.newBufferedWriter(arquivo))) {
             for (String[] linha : linhas) {
                 pw.println(String.join(",", linha));

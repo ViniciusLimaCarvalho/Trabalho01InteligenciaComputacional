@@ -6,7 +6,6 @@ import java.util.Map;
 
 public class Problema {
 
-//    public enum Fitness { GLOBAL, POSICIONAL }
 
     /** Penalidade somada por cada palavra com zero a esquerda; grande o bastante para
      *  nunca zerar o fitness de uma atribuicao invalida. */

@@ -68,45 +68,5 @@ public class Config {
 
     public double taxaMutacao()   { return taxaMutacao; }
 
-    /**
-     * Que porra é essa
-     */
-//    public static Builder baseline() {
-//        return new Builder()
-//                .pop(100)
-//                .geracoes(50)
-//                .tour(3)
-//                .elitismo(0.2)
-//                .selecao(Selecao.S1_TORNEIO)
-//                .crossover(Crossover.C2_PMX)
-//                .reinsercao(Reinsercao.R1_ORDENADA)
-//                .taxaMutacao(0.20)
-//                .taxaCrossover(0.60);
-//    }
 
-//    public static class Builder {
-//        private int indice = 0;
-//        private int pop;
-//        private int geracoes;
-//        private int tour;
-//        private double elitismo;
-//        private Selecao selecao;
-//        private Crossover crossover;
-//        private Reinsercao reinsercao;
-//        private double taxaMutacao;
-//        private double taxaCrossover;
-//
-//        public Builder indice(int v)             { this.indice = v; return this; }
-//        public Builder pop(int v)                { this.pop = v; return this; }
-//        public Builder geracoes(int v)           { this.geracoes = v; return this; }
-//        public Builder tour(int v)               { this.tour = v; return this; }
-//        public Builder elitismo(double v)        { this.elitismo = v; return this; }
-//        public Builder selecao(Selecao v)        { this.selecao = v; return this; }
-//        public Builder crossover(Crossover v)    { this.crossover = v; return this; }
-//        public Builder reinsercao(Reinsercao v)  { this.reinsercao = v; return this; }
-//        public Builder taxaMutacao(double v)     { this.taxaMutacao = v; return this; }
-//        public Builder taxaCrossover(double v)   { this.taxaCrossover = v; return this; }
-//
-//        public Config build() { return new Config(, this, , , , , , , , , ); }
-//    }
 }

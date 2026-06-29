@@ -7,7 +7,6 @@ import cripto.operadores.Selecao;
 
 import java.util.*;
 
-/** Algoritmo Genetico parametrizado por uma {@link Config} (parametros por instancia). */
 public class AG {
 
     /** Resultado de uma execucao do AG. */

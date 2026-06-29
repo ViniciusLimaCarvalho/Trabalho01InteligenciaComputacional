@@ -3,14 +3,6 @@ package cripto;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-/**
- * Representa um problema de criptoaritmetica da forma parcela1 + parcela2 = resultado.
- *
- * As letras são mapeadas em índices de 0 a n-1 (na ordem quem aparecem seguindo a equação
- * acima). Como cada indivíduo possui um cromossomo com permutação de {0...9} o índice de
- * cada letra é obtido por genes[indiceLetra]. Cada letra possui um digito distinto
- *
- */
 public class Problema {
 
     public final String parcela1;

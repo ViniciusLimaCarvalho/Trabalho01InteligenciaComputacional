@@ -1,17 +1,6 @@
 package cripto;
 
-/**
- * Parametros de uma variacao do AG na 2a etapa.
- *
- * Diferente da etapa 1 (onde populacao, geracoes, torneio e elitismo eram constantes
- * estaticas), aqui todos os parametros sao campos de INSTANCIA. Isso permite que cada
- * variacao da etapa 2 ajuste livremente qualquer parametro. Use o {@link Builder}
- * (via {@link #baseline()}) para construir variacoes sobrescrevendo apenas o que muda.
- *
- * A etapa 2 parte da melhor configuracao da etapa 1 (TM2-S1-C2-R1) e explora os
- * EIXOS NUMERICOS: tamanho de populacao, numero de geracoes, taxa de mutacao,
- * taxa de crossover e tamanho do torneio. A mutacao continua sendo o swap da etapa 1.
- */
+
 public class Config {
 
     public enum Selecao { S1_TORNEIO, S2_ROLETA }
